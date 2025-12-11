@@ -179,11 +179,11 @@ export function TriggersPage() {
   const selectedSpot = userSpots.find((s) => s.id === selectedSpotId);
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-4xl">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">Triggers</h1>
-        <p className="text-muted-foreground mt-1">
+      <div className="mb-6 lg:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Triggers</h1>
+        <p className="text-muted-foreground mt-1 text-sm sm:text-base">
           Define what conditions get you out of bed. Triggers are specific to
           each spot.
         </p>
@@ -191,8 +191,8 @@ export function TriggersPage() {
 
       {/* Spot Selector */}
       <Card className="mb-6">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
+        <CardContent className="pt-4 sm:pt-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between">
             <div>
               <label className="text-sm font-medium mb-1 block">
                 Select Spot
@@ -206,7 +206,7 @@ export function TriggersPage() {
               options={spotOptions}
               value={selectedSpotId}
               onChange={setSelectedSpotId}
-              className="w-64"
+              className="w-full sm:w-64"
             />
           </div>
           {selectedSpot && (
@@ -221,13 +221,13 @@ export function TriggersPage() {
       </Card>
 
       {/* Info Banner */}
-      <Card className="mb-8 bg-blue-500/10 border-blue-500/30">
-        <CardContent className="pt-6">
+      <Card className="mb-6 lg:mb-8 bg-primary/10 border-primary/30">
+        <CardContent className="pt-4 sm:pt-6">
           <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-blue-400 mt-0.5" />
+            <Info className="w-5 h-5 text-primary mt-0.5 shrink-0" />
             <div>
-              <p className="font-medium text-blue-100">How Triggers Work</p>
-              <p className="text-sm text-blue-200/70 mt-1">
+              <p className="font-medium text-foreground">How Triggers Work</p>
+              <p className="text-sm text-muted-foreground mt-1">
                 Triggers are checked in order from top to bottom. When
                 conditions match a trigger, you'll get an alert with that
                 condition level (Fair/Good/Epic). Alerts use your Personality
@@ -297,10 +297,10 @@ export function TriggersPage() {
 
               {/* Expanded Content */}
               {expandedId === trigger.id && (
-                <CardContent className="pt-0 pb-6 px-6 border-t border-border mt-2">
-                  <div className="space-y-6 pt-6">
+                <CardContent className="pt-0 pb-4 sm:pb-6 px-4 sm:px-6 border-t border-border mt-2">
+                  <div className="space-y-4 sm:space-y-6 pt-4 sm:pt-6">
                     {/* Name, Emoji & Condition */}
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                       <div>
                         <label className="text-sm font-medium mb-2 block">
                           Trigger Name

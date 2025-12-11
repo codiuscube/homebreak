@@ -90,23 +90,23 @@ export function AlertsPage() {
   };
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-4xl">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">Alert Schedule</h1>
-        <p className="text-muted-foreground mt-1">
+      <div className="mb-6 lg:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Alert Schedule</h1>
+        <p className="text-muted-foreground mt-1 text-sm sm:text-base">
           Control when we check conditions. Alerts only fire when triggers are matched.
         </p>
       </div>
 
       {/* Key Info Banner */}
-      <Card className="mb-8 bg-blue-500/10 border-blue-500/30">
-        <CardContent className="pt-6">
+      <Card className="mb-6 lg:mb-8 bg-primary/10 border-primary/30">
+        <CardContent className="pt-4 sm:pt-6">
           <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-blue-400 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-primary mt-0.5 shrink-0" />
             <div>
-              <p className="font-medium text-blue-100">No Spam, Only Signals</p>
-              <p className="text-sm text-blue-200/70 mt-1">
+              <p className="font-medium text-foreground">No Spam, Only Signals</p>
+              <p className="text-sm text-muted-foreground mt-1">
                 All alerts require conditions to match your triggers. You won't get "nothing happening" messages -
                 only notifications when it's actually worth checking.
               </p>
@@ -116,14 +116,14 @@ export function AlertsPage() {
       </Card>
 
       {/* Scheduled Alerts */}
-      <div className="space-y-4 mb-8">
+      <div className="space-y-4 mb-6 lg:mb-8">
         {schedules.map((schedule) => {
           const Icon = alertIcons[schedule.type];
           const details = alertDetails[schedule.type];
           return (
             <Card key={schedule.id}>
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-4">
+              <CardContent className="pt-4 sm:pt-6">
+                <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                   <div
                     className={`h-12 w-12 rounded-lg flex items-center justify-center shrink-0 ${
                       schedule.enabled
@@ -201,12 +201,12 @@ export function AlertsPage() {
                           <p className="text-xs text-muted-foreground mb-2">
                             Active days (check runs on these days):
                           </p>
-                          <div className="flex gap-2">
+                          <div className="flex flex-wrap gap-2">
                             {daysOfWeek.map((day) => (
                               <button
                                 key={day}
                                 onClick={() => toggleDay(schedule.id, day)}
-                                className={`w-10 h-10 rounded-md text-xs font-medium transition-colors ${
+                                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-md text-xs font-medium transition-colors ${
                                   schedule.days.includes(day)
                                     ? 'bg-primary text-primary-foreground'
                                     : 'bg-secondary text-muted-foreground hover:bg-secondary/80'
@@ -281,10 +281,10 @@ export function AlertsPage() {
       </Card>
 
       {/* How It Works */}
-      <Card className="mt-8 bg-zinc-900/50 border-zinc-700">
-        <CardContent className="pt-6">
+      <Card className="mt-6 lg:mt-8 bg-muted/50 border-border">
+        <CardContent className="pt-4 sm:pt-6">
           <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-muted-foreground mt-0.5" />
+            <Info className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
             <div>
               <p className="font-medium">Alert Flow</p>
               <div className="text-sm text-muted-foreground mt-3 space-y-3">

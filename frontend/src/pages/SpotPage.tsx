@@ -90,33 +90,33 @@ export function SpotPage() {
   );
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-4xl">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">My Spots</h1>
-        <p className="text-muted-foreground mt-1">
+      <div className="mb-6 lg:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">My Spots</h1>
+        <p className="text-muted-foreground mt-1 text-sm sm:text-base">
           Configure your home breaks and nearby buoy for accurate alerts.
         </p>
       </div>
 
       {/* Current Selection */}
       {selectedSpot && !customMode && (
-        <Card className="mb-8 border-green-500/30 bg-green-500/5">
-          <CardContent className="pt-6">
-            <div className="flex items-start justify-between">
-              <div className="flex items-start gap-4">
-                <div className="h-12 w-12 rounded-lg bg-green-500/20 flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-green-400" />
+        <Card className="mb-6 border-green-500/30 bg-green-500/5">
+          <CardContent className="pt-4 sm:pt-6">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-green-500/20 flex items-center justify-center shrink-0">
+                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
                 </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-bold">{selectedSpot.name}</h3>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="text-lg sm:text-xl font-bold">{selectedSpot.name}</h3>
                     <Badge variant="success">Active</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
                     {selectedSpot.region}
                   </p>
-                  <p className="text-xs text-muted-foreground font-mono mt-2">
+                  <p className="text-xs text-muted-foreground font-mono mt-2 break-all">
                     Buoy: {selectedSpot.buoyId} ({selectedSpot.buoyName}) •{" "}
                     {selectedSpot.lat.toFixed(4)}, {selectedSpot.lon.toFixed(4)}
                   </p>
@@ -126,7 +126,7 @@ export function SpotPage() {
                 href={`https://www.ndbc.noaa.gov/station_page.php?station=${selectedSpot.buoyId}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
+                className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1 shrink-0"
               >
                 View Buoy <ExternalLink className="w-3 h-3" />
               </a>
@@ -140,16 +140,20 @@ export function SpotPage() {
         <Button
           variant={!customMode ? "default" : "outline"}
           onClick={() => setCustomMode(false)}
+          size="sm"
+          className="flex-1 sm:flex-none"
         >
           <MapPin className="w-4 h-4 mr-2" />
-          Popular Spots
+          <span className="hidden sm:inline">Popular </span>Spots
         </Button>
         <Button
           variant={customMode ? "default" : "outline"}
           onClick={() => setCustomMode(true)}
+          size="sm"
+          className="flex-1 sm:flex-none"
         >
           <Navigation className="w-4 h-4 mr-2" />
-          Custom Location
+          Custom<span className="hidden sm:inline"> Location</span>
         </Button>
       </div>
 

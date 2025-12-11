@@ -7,7 +7,11 @@ import {
   Bell,
   User,
   MessageSquare,
+  Menu,
+  X,
 } from "lucide-react";
+import { ThemeToggle } from "../ui";
+import { useState } from "react";
 
 const navItems = [
   { to: "/dashboard", icon: LayoutDashboard, label: "Overview", end: true },
@@ -23,38 +27,87 @@ const navItems = [
 ];
 
 export function Sidebar() {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
   return (
-    <aside className="w-64 border-r border-border bg-zinc-950/50 flex flex-col h-screen fixed left-0 top-0">
-      {/* Logo */}
-      <div className="p-6 border-b border-border">
+    <>
+      {/* Mobile Header */}
+      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 h-14 border-b border-sidebar-border bg-sidebar-background flex items-center justify-between px-4">
         <NavLink to="/" className="flex items-center gap-2">
-          <Waves className="w-5 h-5 text-white" />
-          <span className="font-bold tracking-tight text-sm uppercase">
+          <Waves className="w-5 h-5 text-sidebar-primary" />
+          <span className="font-bold tracking-tight text-sm uppercase text-sidebar-foreground">
             Home Break
           </span>
         </NavLink>
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive
-                  ? "bg-secondary text-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-              }`
-            }
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            className="p-2 rounded-lg hover:bg-sidebar-accent text-sidebar-foreground"
+            aria-label="Toggle menu"
           >
-            <item.icon className="w-4 h-4" />
-            {item.label}
+            {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Overlay */}
+      {isMobileOpen && (
+        <div
+          className="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`
+          w-64 border-r border-sidebar-border bg-sidebar-background flex flex-col h-screen fixed left-0 top-0 z-50
+          transform transition-transform duration-200 ease-in-out
+          lg:translate-x-0
+          ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
+        `}
+      >
+        {/* Logo - hidden on mobile since header shows it */}
+        <div className="p-6 border-b border-sidebar-border hidden lg:block">
+          <NavLink to="/" className="flex items-center gap-2">
+            <Waves className="w-5 h-5 text-sidebar-primary" />
+            <span className="font-bold tracking-tight text-sm uppercase text-sidebar-foreground">
+              Home Break
+            </span>
           </NavLink>
-        ))}
-      </nav>
-    </aside>
+        </div>
+
+        {/* Spacer for mobile header */}
+        <div className="h-14 lg:hidden" />
+
+        {/* Navigation */}
+        <nav className="flex-1 p-4 space-y-1">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              onClick={() => setIsMobileOpen(false)}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent/50"
+                }`
+              }
+            >
+              <item.icon className="w-4 h-4" />
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+
+        {/* Theme Toggle - desktop only (mobile shows in header) */}
+        <div className="hidden lg:flex p-4 border-t border-sidebar-border">
+          <ThemeToggle showLabel />
+        </div>
+      </aside>
+    </>
   );
 }

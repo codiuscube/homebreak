@@ -102,17 +102,17 @@ export function DashboardOverview() {
     : null;
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground mt-1">
+      <div className="mb-6 lg:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Dashboard</h1>
+        <p className="text-muted-foreground mt-1 text-sm sm:text-base">
           Monitor conditions across all your spots.
         </p>
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 lg:mb-8">
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-4">
@@ -185,10 +185,10 @@ export function DashboardOverview() {
       </div>
 
       {/* All Spots Status */}
-      <Card className="mb-8">
+      <Card className="mb-6 lg:mb-8">
         <CardHeader>
-          <CardTitle>All Spots</CardTitle>
-          <CardDescription>Current conditions across your configured spots</CardDescription>
+          <CardTitle className="text-lg sm:text-xl">All Spots</CardTitle>
+          <CardDescription className="text-sm">Current conditions across your configured spots</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
@@ -333,10 +333,10 @@ export function DashboardOverview() {
       </Card>
 
       {/* Recent Alerts */}
-      <Card className="mb-8">
+      <Card className="mb-6 lg:mb-8">
         <CardHeader>
-          <CardTitle>Recent Alerts</CardTitle>
-          <CardDescription>Your last notifications across all spots</CardDescription>
+          <CardTitle className="text-lg sm:text-xl">Recent Alerts</CardTitle>
+          <CardDescription className="text-sm">Your last notifications across all spots</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
@@ -362,9 +362,9 @@ export function DashboardOverview() {
       </Card>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         <Link to="/dashboard/triggers">
-          <Card className="group hover:border-zinc-600 transition-colors cursor-pointer h-full">
+          <Card className="group hover:border-primary/50 transition-colors cursor-pointer h-full">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -378,7 +378,7 @@ export function DashboardOverview() {
         </Link>
 
         <Link to="/dashboard/spot">
-          <Card className="group hover:border-zinc-600 transition-colors cursor-pointer h-full">
+          <Card className="group hover:border-primary/50 transition-colors cursor-pointer h-full">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -391,8 +391,8 @@ export function DashboardOverview() {
           </Card>
         </Link>
 
-        <Link to="/dashboard/alerts">
-          <Card className="group hover:border-zinc-600 transition-colors cursor-pointer h-full">
+        <Link to="/dashboard/alerts" className="sm:col-span-2 lg:col-span-1">
+          <Card className="group hover:border-primary/50 transition-colors cursor-pointer h-full">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>

@@ -34,25 +34,25 @@ export function AccountPage() {
   const [homeAddress, setHomeAddress] = useState("");
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-4xl">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">Account</h1>
-        <p className="text-muted-foreground mt-1">
+      <div className="mb-6 lg:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Account</h1>
+        <p className="text-muted-foreground mt-1 text-sm sm:text-base">
           Manage your contact info and notification preferences.
         </p>
       </div>
 
       {/* Contact Info */}
-      <Card className="mb-8">
+      <Card className="mb-6 lg:mb-8">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
             <User className="w-5 h-5" />
             Contact Information
           </CardTitle>
-          <CardDescription>Where we send your surf alerts</CardDescription>
+          <CardDescription className="text-sm">Where we send your surf alerts</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6">
           {/* Phone */}
           <div>
             <label className="text-sm font-medium mb-2 flex items-center justify-between">
@@ -113,25 +113,25 @@ export function AccountPage() {
       </Card>
 
       {/* Home Address */}
-      <Card className="mb-8">
+      <Card className="mb-6 lg:mb-8">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
             <Home className="w-5 h-5" />
             Home Address
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-sm">
             Used for traffic estimates in all alerts. We never share this data.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Input
               placeholder="123 Main St, Houston, TX"
               value={homeAddress}
               onChange={(e) => setHomeAddress(e.target.value)}
               className="flex-1"
             />
-            <Button variant="outline">
+            <Button variant="outline" className="w-full sm:w-auto">
               <Navigation className="w-4 h-4 mr-2" />
               Verify
             </Button>
@@ -143,14 +143,14 @@ export function AccountPage() {
       </Card>
 
       {/* Notification Channels */}
-      <Card className="mb-8">
+      <Card className="mb-6 lg:mb-8">
         <CardHeader>
-          <CardTitle>Notification Channels</CardTitle>
-          <CardDescription>How you receive surf alerts</CardDescription>
+          <CardTitle className="text-lg sm:text-xl">Notification Channels</CardTitle>
+          <CardDescription className="text-sm">How you receive surf alerts</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
           {/* SMS - Primary */}
-          <div className="flex items-center justify-between p-4 border-2 border-green-500/50 bg-green-500/5 rounded-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 gap-3 border-2 border-green-500/50 bg-green-500/5 rounded-lg">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
                 <Phone className="w-5 h-5 text-green-400" />
@@ -169,17 +169,17 @@ export function AccountPage() {
           </div>
 
           {/* Email - Fallback */}
-          <div className="flex items-center justify-between p-4 border border-zinc-700 rounded-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 gap-3 border border-border rounded-lg">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center">
-                <Mail className="w-5 h-5 text-zinc-400" />
+              <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
+                <Mail className="w-5 h-5 text-muted-foreground" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="font-medium text-zinc-400">Email</p>
+                  <p className="font-medium text-muted-foreground">Email</p>
                   <Badge variant="secondary" className="text-[10px]">Fallback</Badge>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {currentTier === "free"
                     ? "Used when SMS limit reached (Night Before alerts only)"
                     : "Backup if SMS delivery fails"
@@ -187,7 +187,7 @@ export function AccountPage() {
                 </p>
               </div>
             </div>
-            <span className="text-xs text-zinc-500">Auto-enabled</span>
+            <span className="text-xs text-muted-foreground">Auto-enabled</span>
           </div>
 
           {/* Explanation */}
@@ -200,7 +200,7 @@ export function AccountPage() {
 
       {/* Supporter Status */}
       <Card
-        className={`mb-8 ${
+        className={`mb-6 lg:mb-8 ${
           currentTier === "free"
             ? "border-yellow-500/30 bg-yellow-500/5"
             : "border-green-500/30 bg-green-500/5"

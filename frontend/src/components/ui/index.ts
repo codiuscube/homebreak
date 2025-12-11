@@ -5,3 +5,4 @@ export { Slider } from './Slider';
 export { Switch } from './Switch';
 export { Select } from './Select';
 export { Badge } from './Badge';
+export { ThemeToggle } from './ThemeToggle';

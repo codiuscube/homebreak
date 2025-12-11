@@ -4,7 +4,6 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
   Button,
   Switch,
@@ -183,33 +182,33 @@ export function PersonalityPage() {
   const activeConfig = triggerConfig.find(t => t.condition === activeCondition)!;
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-4xl">
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Message Personality</h1>
-        <p className="text-muted-foreground mt-1">
+      <div className="mb-4 sm:mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Message Personality</h1>
+        <p className="text-muted-foreground mt-1 text-sm sm:text-base">
           Different vibes for different conditions
         </p>
       </div>
 
       {/* Condition Tabs - Large, Primary Navigation */}
       <div className="flex gap-2 mb-4">
-        {triggerConfig.map(({ condition, label, bgColor, borderColor }) => {
+        {triggerConfig.map(({ condition, label, bgColor }) => {
           const isActive = activeCondition === condition;
           const emoji = personalities.find(p => p.id === personalityByCondition[condition])?.emoji;
           return (
             <button
               key={condition}
               onClick={() => setActiveCondition(condition)}
-              className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all ${
+              className={`flex-1 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl font-medium transition-all text-sm sm:text-base ${
                 isActive
                   ? `${bgColor} text-white shadow-lg`
-                  : `bg-zinc-800 text-zinc-400 hover:bg-zinc-700 border-2 border-transparent`
+                  : `bg-muted text-muted-foreground hover:bg-accent border-2 border-transparent`
               }`}
             >
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-1 sm:gap-2">
                 <span>{label}</span>
-                <span className="text-lg">{emoji}</span>
+                <span className="text-base sm:text-lg">{emoji}</span>
               </div>
             </button>
           );
@@ -217,56 +216,56 @@ export function PersonalityPage() {
       </div>
 
       {/* Preview - Prominent, Updates Live */}
-      <Card className={`mb-6 border-2 ${activeConfig.borderColor} bg-zinc-900/50`}>
-        <CardContent className="pt-4">
+      <Card className={`mb-4 sm:mb-6 border-2 ${activeConfig.borderColor} bg-card`}>
+        <CardContent className="pt-3 sm:pt-4">
           {/* iOS Messages Style */}
-          <div className="bg-zinc-800 rounded-2xl p-4">
-            <div className="text-center mb-3 pb-2 border-b border-zinc-700">
-              <p className="text-[10px] text-zinc-500 uppercase tracking-wide">Text Message</p>
-              <p className="font-semibold text-sm text-white">Home Break (512) 555-0123</p>
+          <div className="bg-muted rounded-2xl p-3 sm:p-4">
+            <div className="text-center mb-3 pb-2 border-b border-border">
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Text Message</p>
+              <p className="font-semibold text-sm text-foreground">Home Break (512) 555-0123</p>
             </div>
 
             <div className="flex justify-start">
-              <div className="bg-[#34C759] text-white px-4 py-2.5 rounded-2xl rounded-bl-md shadow-sm max-w-[95%]">
-                <p className="text-[14px] leading-snug">{getPreviewMessage()}</p>
+              <div className="bg-[#34C759] text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl rounded-bl-md shadow-sm max-w-[98%] sm:max-w-[95%]">
+                <p className="text-[13px] sm:text-[14px] leading-snug">{getPreviewMessage()}</p>
               </div>
             </div>
 
             <div className="text-center mt-2">
-              <span className="text-[11px] text-zinc-500">Just now</span>
+              <span className="text-[11px] text-muted-foreground">Just now</span>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Personality Selection for Active Condition */}
-      <Card className="mb-6">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base flex items-center gap-2">
+      <Card className="mb-4 sm:mb-6">
+        <CardHeader className="pb-3 px-4 sm:px-6">
+          <CardTitle className="text-sm sm:text-base flex flex-wrap items-center gap-1 sm:gap-2">
             <span className={activeConfig.color}>When {activeConfig.label}:</span>
-            <span className="text-muted-foreground font-normal text-sm">use this voice</span>
+            <span className="text-muted-foreground font-normal text-xs sm:text-sm">use this voice</span>
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <CardContent className="px-4 sm:px-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
             {personalities.map((personality) => {
               const isSelected = personalityByCondition[activeCondition] === personality.id;
               return (
                 <button
                   key={personality.id}
                   onClick={() => updatePersonalityForCondition(personality.id)}
-                  className={`p-4 rounded-xl border-2 text-left transition-all ${
+                  className={`p-3 sm:p-4 rounded-xl border-2 text-left transition-all ${
                     isSelected
-                      ? `${activeConfig.borderColor} bg-white/5`
-                      : "border-zinc-700 hover:border-zinc-500"
+                      ? `${activeConfig.borderColor} bg-accent/50`
+                      : "border-border hover:border-muted-foreground"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-2xl">{personality.emoji}</span>
+                    <span className="text-xl sm:text-2xl">{personality.emoji}</span>
                     {isSelected && <Check className={`w-4 h-4 ${activeConfig.color}`} />}
                   </div>
-                  <p className="font-medium text-sm">{personality.name}</p>
-                  <p className="text-xs text-muted-foreground">{personality.description}</p>
+                  <p className="font-medium text-xs sm:text-sm">{personality.name}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">{personality.description}</p>
                 </button>
               );
             })}
@@ -275,21 +274,21 @@ export function PersonalityPage() {
       </Card>
 
       {/* Message Options */}
-      <Card className="mb-6">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base">Include in Messages</CardTitle>
+      <Card className="mb-4 sm:mb-6">
+        <CardHeader className="pb-3 px-4 sm:px-6">
+          <CardTitle className="text-sm sm:text-base">Include in Messages</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className={`flex items-center justify-between p-3 rounded-lg border ${includeEmoji ? 'border-primary bg-primary/5' : 'border-zinc-700'}`}>
+        <CardContent className="px-4 sm:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+            <div className={`flex items-center justify-between p-3 rounded-lg border ${includeEmoji ? 'border-primary bg-primary/5' : 'border-border'}`}>
               <span className="text-sm font-medium">Emoji</span>
               <Switch checked={includeEmoji} onChange={setIncludeEmoji} />
             </div>
-            <div className={`flex items-center justify-between p-3 rounded-lg border ${includeBuoyData ? 'border-primary bg-primary/5' : 'border-zinc-700'}`}>
+            <div className={`flex items-center justify-between p-3 rounded-lg border ${includeBuoyData ? 'border-primary bg-primary/5' : 'border-border'}`}>
               <span className="text-sm font-medium">Buoy Data</span>
               <Switch checked={includeBuoyData} onChange={setIncludeBuoyData} />
             </div>
-            <div className={`flex items-center justify-between p-3 rounded-lg border ${includeTraffic ? 'border-primary bg-primary/5' : 'border-zinc-700'}`}>
+            <div className={`flex items-center justify-between p-3 rounded-lg border ${includeTraffic ? 'border-primary bg-primary/5' : 'border-border'}`}>
               <span className="text-sm font-medium">Traffic</span>
               <Switch checked={includeTraffic} onChange={setIncludeTraffic} />
             </div>
@@ -298,12 +297,12 @@ export function PersonalityPage() {
       </Card>
 
       {/* Location Context - Small Footer */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <MapPin className="w-4 h-4" />
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4 sm:mb-6">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+          <MapPin className="w-4 h-4 shrink-0" />
           <span>Local flavor tuned for <span className="text-foreground">{userRegion}</span></span>
         </div>
-        <Button size="lg">Save Settings</Button>
+        <Button size="lg" className="w-full sm:w-auto">Save Settings</Button>
       </div>
     </div>
   );
