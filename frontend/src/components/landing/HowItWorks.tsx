@@ -45,63 +45,26 @@ export function HowItWorks() {
             </div>
           </div>
 
-          {/* Code Block Visual */}
+          {/* Surf Image Visual */}
           <div className="relative group">
-            <div className="absolute -inset-1 bg-linear-to-r from-zinc-700 to-zinc-900 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000" />
-            <div className="relative rounded-lg bg-[#0d0d0d] border border-border p-4 font-mono text-xs md:text-sm text-zinc-300 shadow-2xl overflow-hidden">
-              <div className="flex items-center gap-2 mb-4 border-b border-white/10 pb-2">
-                <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50" />
-                <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50" />
-                <span className="ml-2 text-zinc-500">alert_logic.ts</span>
-              </div>
-              <div className="space-y-1">
-                <p>
-                  <span className="text-purple-400">const</span> checkSurf =
-                  <span className="text-blue-400"> async</span> (spot) =&gt; {'{'}
+            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition duration-500" />
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+              <img
+                src="https://images.unsplash.com/photo-1476574898132-040f50db0a01?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Ocean wave at sunset"
+                className="w-full h-[400px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+              {/* Overlay Content */}
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-xs font-mono text-white/80">Live monitoring active</span>
+                </div>
+                <p className="text-white/90 text-sm font-medium">
+                  Real-time conditions analyzed 24/7 so you never miss a session.
                 </p>
-                <p className="pl-4">
-                  <span className="text-zinc-500">// 1. Get Ground Truth</span>
-                </p>
-                <p className="pl-4">
-                  <span className="text-purple-400">const</span> buoy =
-                  <span className="text-blue-400"> await</span>{' '}
-                  NOAA.getBuoy(spot.buoyId);
-                </p>
-                <p className="pl-4">
-                  <span className="text-purple-400">const</span> weather =
-                  <span className="text-blue-400"> await</span>{' '}
-                  OpenMeteo.get(spot.lat, spot.lon);
-                </p>
-                <br />
-                <p className="pl-4">
-                  <span className="text-zinc-500">// 2. Check User Preferences</span>
-                </p>
-                <p className="pl-4">
-                  <span className="text-purple-400">if</span> (buoy.height &gt;=
-                  spot.minHeight && weather.wind ===
-                  <span className="text-green-400"> 'offshore'</span>) {'{'}
-                </p>
-                <p className="pl-8">
-                  <span className="text-zinc-500">// 3. Generate Personality</span>
-                </p>
-                <p className="pl-8">
-                  <span className="text-purple-400">const</span> hype =
-                  <span className="text-blue-400"> await</span> Claude.generate({'{'}
-                </p>
-                <p className="pl-12">
-                  vibe: <span className="text-green-400">'stoked_local'</span>,
-                </p>
-                <p className="pl-12">
-                  data: {'{'} wave: buoy.height, period: buoy.period {'}'}
-                </p>
-                <p className="pl-8">{'}'});</p>
-                <p className="pl-8">
-                  <span className="text-blue-400">return</span>{' '}
-                  sendSMS(spot.userPhone, hype);
-                </p>
-                <p className="pl-4">{'}'}</p>
-                <p>{'}'}</p>
               </div>
             </div>
           </div>

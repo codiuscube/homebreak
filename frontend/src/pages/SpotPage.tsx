@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapPin, Navigation, Search, Check, ExternalLink } from "lucide-react";
+import { MapPin, Navigation, Search, Check, ExternalLink, Plus, Trash2 } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -69,9 +69,7 @@ const buoyOptions = [
 ];
 
 export function SpotPage() {
-  const [selectedSpot, setSelectedSpot] = useState<SpotOption | null>(
-    popularSpots[0]
-  );
+  const [mySpots, setMySpots] = useState<SpotOption[]>([popularSpots[0]]);
   const [customMode, setCustomMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -81,13 +79,41 @@ export function SpotPage() {
     lon: "",
     buoyId: "42035",
   });
-  // Removed homeAddress - now in AccountPage
 
   const filteredSpots = popularSpots.filter(
     (spot) =>
       spot.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       spot.region.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const isSpotSaved = (spotId: string) => mySpots.some((s) => s.id === spotId);
+
+  const addSpot = (spot: SpotOption) => {
+    if (!isSpotSaved(spot.id)) {
+      setMySpots([...mySpots, spot]);
+    }
+  };
+
+  const removeSpot = (spotId: string) => {
+    setMySpots(mySpots.filter((s) => s.id !== spotId));
+  };
+
+  const addCustomSpot = () => {
+    if (!customSpot.name || !customSpot.lat || !customSpot.lon) return;
+    const buoy = buoyOptions.find((b) => b.value === customSpot.buoyId);
+    const newSpot: SpotOption = {
+      id: `custom-${Date.now()}`,
+      name: customSpot.name,
+      region: "Custom Location",
+      buoyId: customSpot.buoyId,
+      buoyName: buoy?.label.split(" - ")[1]?.split(" (")[0] || customSpot.buoyId,
+      lat: parseFloat(customSpot.lat),
+      lon: parseFloat(customSpot.lon),
+    };
+    setMySpots([...mySpots, newSpot]);
+    setCustomSpot({ name: "", lat: "", lon: "", buoyId: "42035" });
+    setCustomMode(false);
+  };
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-4xl">
@@ -99,38 +125,57 @@ export function SpotPage() {
         </p>
       </div>
 
-      {/* Current Selection */}
-      {selectedSpot && !customMode && (
+      {/* My Saved Spots */}
+      {mySpots.length > 0 && (
         <Card className="mb-6 border-green-500/30 bg-green-500/5">
-          <CardContent className="pt-4 sm:pt-6">
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-              <div className="flex items-start gap-3 sm:gap-4">
-                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-green-500/20 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-lg sm:text-xl font-bold">{selectedSpot.name}</h3>
-                    <Badge variant="success">Active</Badge>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-green-400" />
+              My Saved Spots
+              <Badge variant="success">{mySpots.length}</Badge>
+            </CardTitle>
+            <CardDescription>
+              Your spots will receive alerts based on your triggers.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {mySpots.map((spot) => (
+              <div
+                key={spot.id}
+                className="flex flex-col sm:flex-row sm:items-center justify-between p-3 border border-border rounded-lg bg-background gap-3"
+              >
+                <div className="flex items-start gap-3 min-w-0">
+                  <div className="h-10 w-10 rounded-lg bg-green-500/20 flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5 text-green-400" />
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {selectedSpot.region}
-                  </p>
-                  <p className="text-xs text-muted-foreground font-mono mt-2 break-all">
-                    Buoy: {selectedSpot.buoyId} ({selectedSpot.buoyName}) •{" "}
-                    {selectedSpot.lat.toFixed(4)}, {selectedSpot.lon.toFixed(4)}
-                  </p>
+                  <div className="min-w-0">
+                    <h4 className="font-medium truncate">{spot.name}</h4>
+                    <p className="text-xs text-muted-foreground">{spot.region}</p>
+                    <p className="text-xs text-muted-foreground font-mono mt-1">
+                      Buoy: {spot.buoyId}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <a
+                    href={`https://www.ndbc.noaa.gov/station_page.php?station=${spot.buoyId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
+                  >
+                    View Buoy <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removeSpot(spot.id)}
+                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
-              <a
-                href={`https://www.ndbc.noaa.gov/station_page.php?station=${selectedSpot.buoyId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1 shrink-0"
-              >
-                View Buoy <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
+            ))}
           </CardContent>
         </Card>
       )}
@@ -172,34 +217,45 @@ export function SpotPage() {
 
           {/* Spots Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredSpots.map((spot) => (
-              <Card
-                key={spot.id}
-                className={`cursor-pointer transition-all hover:border-zinc-600 ${
-                  selectedSpot?.id === spot.id ? "border-primary" : ""
-                }`}
-                onClick={() => setSelectedSpot(spot)}
-              >
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <h4 className="font-bold">{spot.name}</h4>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {spot.region}
-                      </p>
-                      <p className="text-xs text-muted-foreground font-mono mt-2">
-                        Buoy: {spot.buoyId}
-                      </p>
-                    </div>
-                    {selectedSpot?.id === spot.id && (
-                      <div className="h-6 w-6 rounded-full bg-primary flex items-center justify-center">
-                        <Check className="w-4 h-4 text-primary-foreground" />
+            {filteredSpots.map((spot) => {
+              const saved = isSpotSaved(spot.id);
+              return (
+                <Card
+                  key={spot.id}
+                  className={`transition-all ${
+                    saved ? "border-green-500/50 bg-green-500/5" : "hover:border-zinc-600"
+                  }`}
+                >
+                  <CardContent className="pt-6">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h4 className="font-bold">{spot.name}</h4>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {spot.region}
+                        </p>
+                        <p className="text-xs text-muted-foreground font-mono mt-2">
+                          Buoy: {spot.buoyId}
+                        </p>
                       </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                      {saved ? (
+                        <div className="h-6 w-6 rounded-full bg-green-500 flex items-center justify-center">
+                          <Check className="w-4 h-4 text-white" />
+                        </div>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => addSpot(spot)}
+                        >
+                          <Plus className="w-4 h-4 mr-1" />
+                          Add
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </>
       ) : (
@@ -266,18 +322,18 @@ export function SpotPage() {
               </p>
             </div>
 
-            <Button className="mt-4">
-              <MapPin className="w-4 h-4 mr-2" />
-              Save Custom Spot
+            <Button
+              className="mt-4"
+              onClick={addCustomSpot}
+              disabled={!customSpot.name || !customSpot.lat || !customSpot.lon}
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Custom Spot
             </Button>
           </CardContent>
         </Card>
       )}
 
-      {/* Save */}
-      <div className="mt-8 flex justify-end">
-        <Button size="lg">Save Changes</Button>
-      </div>
     </div>
   );
 }
