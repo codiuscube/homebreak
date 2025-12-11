@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { MapPin, Navigation, Search, Check, ExternalLink } from 'lucide-react';
+import { useState } from "react";
+import { MapPin, Navigation, Search, Check, ExternalLink } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -10,7 +10,7 @@ import {
   Input,
   Select,
   Badge,
-} from '../components/ui';
+} from "../components/ui";
 
 interface SpotOption {
   id: string;
@@ -24,62 +24,64 @@ interface SpotOption {
 
 const popularSpots: SpotOption[] = [
   {
-    id: '1',
-    name: 'Surfside Beach',
-    region: 'Texas Gulf Coast',
-    buoyId: '42035',
-    buoyName: 'Galveston',
+    id: "1",
+    name: "Surfside Beach",
+    region: "Texas Gulf Coast",
+    buoyId: "42035",
+    buoyName: "Galveston",
     lat: 29.0469,
     lon: -95.2882,
   },
   {
-    id: '2',
-    name: 'Galveston (61st St)',
-    region: 'Texas Gulf Coast',
-    buoyId: '42035',
-    buoyName: 'Galveston',
+    id: "2",
+    name: "Galveston (61st St)",
+    region: "Texas Gulf Coast",
+    buoyId: "42035",
+    buoyName: "Galveston",
     lat: 29.2874,
     lon: -94.8031,
   },
   {
-    id: '3',
-    name: 'South Padre Island',
-    region: 'Texas Gulf Coast',
-    buoyId: '42020',
-    buoyName: 'South Padre',
+    id: "3",
+    name: "South Padre Island",
+    region: "Texas Gulf Coast",
+    buoyId: "42020",
+    buoyName: "South Padre",
     lat: 26.1118,
     lon: -97.1681,
   },
   {
-    id: '4',
-    name: 'Bob Hall Pier',
-    region: 'Texas Gulf Coast',
-    buoyId: '42020',
-    buoyName: 'Corpus Christi',
+    id: "4",
+    name: "Bob Hall Pier",
+    region: "Texas Gulf Coast",
+    buoyId: "42020",
+    buoyName: "Corpus Christi",
     lat: 27.5816,
     lon: -97.2185,
   },
 ];
 
 const buoyOptions = [
-  { value: '42035', label: '42035 - Galveston (22nm SE)' },
-  { value: '42020', label: '42020 - Corpus Christi (50nm SE)' },
-  { value: '42019', label: '42019 - Freeport (60nm S)' },
-  { value: '42001', label: '42001 - Mid Gulf (180nm S)' },
+  { value: "42035", label: "42035 - Galveston (22nm SE)" },
+  { value: "42020", label: "42020 - Corpus Christi (50nm SE)" },
+  { value: "42019", label: "42019 - Freeport (60nm S)" },
+  { value: "42001", label: "42001 - Mid Gulf (180nm S)" },
 ];
 
 export function SpotPage() {
-  const [selectedSpot, setSelectedSpot] = useState<SpotOption | null>(popularSpots[0]);
+  const [selectedSpot, setSelectedSpot] = useState<SpotOption | null>(
+    popularSpots[0]
+  );
   const [customMode, setCustomMode] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [homeAddress, setHomeAddress] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [customSpot, setCustomSpot] = useState({
-    name: '',
-    lat: '',
-    lon: '',
-    buoyId: '42035',
+    name: "",
+    lat: "",
+    lon: "",
+    buoyId: "42035",
   });
+  // Removed homeAddress - now in AccountPage
 
   const filteredSpots = popularSpots.filter(
     (spot) =>
@@ -91,9 +93,9 @@ export function SpotPage() {
     <div className="p-8 max-w-4xl">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">My Spot</h1>
+        <h1 className="text-3xl font-bold tracking-tight">My Spots</h1>
         <p className="text-muted-foreground mt-1">
-          Configure your home break and nearby buoy for accurate alerts.
+          Configure your home breaks and nearby buoy for accurate alerts.
         </p>
       </div>
 
@@ -115,7 +117,7 @@ export function SpotPage() {
                     {selectedSpot.region}
                   </p>
                   <p className="text-xs text-muted-foreground font-mono mt-2">
-                    Buoy: {selectedSpot.buoyId} ({selectedSpot.buoyName}) •{' '}
+                    Buoy: {selectedSpot.buoyId} ({selectedSpot.buoyName}) •{" "}
                     {selectedSpot.lat.toFixed(4)}, {selectedSpot.lon.toFixed(4)}
                   </p>
                 </div>
@@ -136,14 +138,14 @@ export function SpotPage() {
       {/* Mode Toggle */}
       <div className="flex gap-2 mb-6">
         <Button
-          variant={!customMode ? 'default' : 'outline'}
+          variant={!customMode ? "default" : "outline"}
           onClick={() => setCustomMode(false)}
         >
           <MapPin className="w-4 h-4 mr-2" />
           Popular Spots
         </Button>
         <Button
-          variant={customMode ? 'default' : 'outline'}
+          variant={customMode ? "default" : "outline"}
           onClick={() => setCustomMode(true)}
         >
           <Navigation className="w-4 h-4 mr-2" />
@@ -170,7 +172,7 @@ export function SpotPage() {
               <Card
                 key={spot.id}
                 className={`cursor-pointer transition-all hover:border-zinc-600 ${
-                  selectedSpot?.id === spot.id ? 'border-primary' : ''
+                  selectedSpot?.id === spot.id ? "border-primary" : ""
                 }`}
                 onClick={() => setSelectedSpot(spot)}
               >
@@ -207,7 +209,9 @@ export function SpotPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <label className="text-sm font-medium mb-2 block">Spot Name</label>
+              <label className="text-sm font-medium mb-2 block">
+                Spot Name
+              </label>
               <Input
                 placeholder="e.g., My Secret Spot"
                 value={customSpot.name}
@@ -219,7 +223,9 @@ export function SpotPage() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium mb-2 block">Latitude</label>
+                <label className="text-sm font-medium mb-2 block">
+                  Latitude
+                </label>
                 <Input
                   placeholder="29.0469"
                   value={customSpot.lat}
@@ -229,7 +235,9 @@ export function SpotPage() {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium mb-2 block">Longitude</label>
+                <label className="text-sm font-medium mb-2 block">
+                  Longitude
+                </label>
                 <Input
                   placeholder="-95.2882"
                   value={customSpot.lon}
@@ -241,7 +249,9 @@ export function SpotPage() {
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-2 block">Nearest Buoy</label>
+              <label className="text-sm font-medium mb-2 block">
+                Nearest Buoy
+              </label>
               <Select
                 options={buoyOptions}
                 value={customSpot.buoyId}
@@ -259,30 +269,6 @@ export function SpotPage() {
           </CardContent>
         </Card>
       )}
-
-      {/* Home Address for Traffic */}
-      <Card className="mt-8">
-        <CardHeader>
-          <CardTitle>Home Address (Optional)</CardTitle>
-          <CardDescription>
-            Used for traffic estimates in all alerts. We never share this data.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex gap-4">
-            <Input
-              placeholder="123 Main St, Houston, TX"
-              value={homeAddress}
-              onChange={(e) => setHomeAddress(e.target.value)}
-              className="flex-1"
-            />
-            <Button variant="outline">
-              <Navigation className="w-4 h-4 mr-2" />
-              Verify
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Save */}
       <div className="mt-8 flex justify-end">

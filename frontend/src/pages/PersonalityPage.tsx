@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { MessageSquare, Sparkles, Check } from 'lucide-react';
+import { useState } from "react";
+import { Check, MapPin } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -7,170 +7,303 @@ import {
   CardDescription,
   CardContent,
   Button,
-  Badge,
-} from '../components/ui';
+  Switch,
+} from "../components/ui";
+
+type PersonalityId = "stoked_local" | "chill_surfer" | "data_nerd" | "hype_beast";
+type TriggerCondition = "fair" | "good" | "epic";
 
 interface Personality {
-  id: string;
+  id: PersonalityId;
   name: string;
   description: string;
   emoji: string;
-  example: string;
 }
 
 const personalities: Personality[] = [
   {
-    id: 'stoked_local',
-    name: 'Stoked Local',
-    description: 'Your hyped-up buddy who gets way too excited about any swell.',
-    emoji: '🤙',
-    example:
-      "DUDE. Surfside is FIRING right now. 5ft sets rolling through, offshore wind, and it's gonna be glassy until 10. Get your ass in the car. NOW. Don't even shower.",
+    id: "stoked_local",
+    name: "Stoked Local",
+    description: "Hyped-up buddy energy",
+    emoji: "🤙",
   },
   {
-    id: 'chill_surfer',
-    name: 'Chill Surfer',
-    description: 'Laid back vibes. Never too hyped, never too bummed.',
-    emoji: '🌊',
-    example:
-      "Hey, looking pretty nice out there. 4ft @ 11s, light offshore. Should be a fun one if you can make it. No rush, but conditions are holding.",
+    id: "chill_surfer",
+    name: "Chill Surfer",
+    description: "Laid back, no pressure",
+    emoji: "🌊",
   },
   {
-    id: 'data_nerd',
-    name: 'Data Nerd',
-    description: 'Just the facts. Numbers, periods, directions. Pure data.',
-    emoji: '📊',
-    example:
-      "Alert: Conditions met. Buoy 42035 reading 4.2ft @ 12s (SE 145°). Wind: 8mph NW (offshore). Water: 72°F. Forecast: Holding through 1400. Traffic: 47min.",
+    id: "data_nerd",
+    name: "Data Nerd",
+    description: "Just the numbers",
+    emoji: "📊",
   },
   {
-    id: 'hype_beast',
-    name: 'Hype Beast',
-    description: 'Maximum energy. Every swell is the swell of the century.',
-    emoji: '🔥',
-    example:
-      "🚨 EMERGENCY SURF ALERT 🚨 THIS IS NOT A DRILL. THE OCEAN IS LITERALLY PERFECT RIGHT NOW. 5FT BOMBS. OFFSHORE. NOBODY OUT. YOUR BOSS WILL UNDERSTAND. GOOOOOO!!!",
+    id: "hype_beast",
+    name: "Hype Beast",
+    description: "Maximum energy",
+    emoji: "🔥",
   },
 ];
 
+const triggerConfig: { condition: TriggerCondition; label: string; color: string; bgColor: string; borderColor: string; description: string }[] = [
+  { condition: "fair", label: "Fair", color: "text-yellow-400", bgColor: "bg-yellow-500", borderColor: "border-yellow-500", description: "Met minimum threshold" },
+  { condition: "good", label: "Good", color: "text-green-400", bgColor: "bg-green-500", borderColor: "border-green-500", description: "Solid, worth the drive" },
+  { condition: "epic", label: "Epic", color: "text-purple-400", bgColor: "bg-purple-500", borderColor: "border-purple-500", description: "Drop everything" },
+];
+
 export function PersonalityPage() {
-  const [selectedPersonality, setSelectedPersonality] = useState('stoked_local');
+  // Active condition being configured
+  const [activeCondition, setActiveCondition] = useState<TriggerCondition>("good");
+
+  // Personality per trigger condition
+  const [personalityByCondition, setPersonalityByCondition] = useState<Record<TriggerCondition, PersonalityId>>({
+    fair: "data_nerd",
+    good: "stoked_local",
+    epic: "hype_beast",
+  });
+
+  const [includeEmoji, setIncludeEmoji] = useState(true);
+  const [includeBuoyData, setIncludeBuoyData] = useState(false);
+  const [includeTraffic, setIncludeTraffic] = useState(true);
+
+  // User's home location for local flavor
+  const userRegion = "Texas Gulf Coast";
+
+  const updatePersonalityForCondition = (personality: PersonalityId) => {
+    setPersonalityByCondition(prev => ({ ...prev, [activeCondition]: personality }));
+  };
+
+  // Generate preview message
+  const getPreviewMessage = () => {
+    const data = {
+      spot: "Surfside",
+      forecast: { height: "4.2ft", period: "12s", dir: "SE" },
+      wind: { speed: "8mph", dir: "NW" },
+      buoy: { id: "42035", height: "3ft", period: "15s", time: "6am" },
+      water: "72°F",
+      drive: { time: "45min", traffic: "heavy" },
+    };
+
+    const localFlavor = {
+      traffic: ["I-45's already packed", "traffic on 288 ain't bad", "Galveston causeway clear"],
+    };
+
+    const selectedPersonality = personalityByCondition[activeCondition];
+
+    // STOKED LOCAL
+    if (selectedPersonality === "stoked_local") {
+      if (activeCondition === "epic") {
+        let msg = includeEmoji ? "🤙🔥 " : "";
+        msg += `DUDE! ${data.spot} is FIRING - rare Texas glass! ${data.forecast.height} @ ${data.forecast.period} from the ${data.forecast.dir}, ${data.wind.speed} ${data.wind.dir} keeping it CLEAN.`;
+        if (includeBuoyData) msg += ` Buoy ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period} at ${data.buoy.time} - building! ${data.water}.`;
+        if (includeTraffic) msg += ` ${data.drive.time}, ${localFlavor.traffic[0]} but WHO CARES!`;
+        msg += includeEmoji ? " Get there before the Houston crowd! 🏄‍♂️" : " Get there before Houston!";
+        return msg;
+      } else if (activeCondition === "good") {
+        let msg = includeEmoji ? "🤙 " : "";
+        msg += `${data.spot}'s looking good! Gulf's cooperating - ${data.forecast.height} @ ${data.forecast.period} ${data.forecast.dir}, ${data.wind.speed} ${data.wind.dir}.`;
+        if (includeBuoyData) msg += ` Buoy ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period}. ${data.water}.`;
+        if (includeTraffic) msg += ` ${data.drive.time}, ${data.drive.traffic} traffic on 288.`;
+        msg += " Worth the drive!";
+        return msg;
+      } else {
+        let msg = includeEmoji ? "🤷 " : "";
+        msg += `${data.spot}'s okay - nothing special but hey, it's Texas. ${data.forecast.height} @ ${data.forecast.period} ${data.forecast.dir}.`;
+        if (includeBuoyData) msg += ` Buoy ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period}. ${data.water}.`;
+        if (includeTraffic) msg += ` ${data.drive.time} if ${localFlavor.traffic[1]}.`;
+        msg += " Could scratch the itch.";
+        return msg;
+      }
+    }
+
+    // CHILL SURFER
+    if (selectedPersonality === "chill_surfer") {
+      if (activeCondition === "epic") {
+        let msg = `Hey - ${data.spot}'s actually really nice. ${data.forecast.height} @ ${data.forecast.period} ${data.forecast.dir}, ${data.wind.speed} ${data.wind.dir}. Clean for the Gulf.`;
+        if (includeBuoyData) msg += ` Buoy ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period}. ${data.water}.`;
+        if (includeTraffic) msg += ` ${data.drive.time} down there.`;
+        msg += " Definitely worth it.";
+        return msg;
+      } else if (activeCondition === "good") {
+        let msg = `${data.spot}'s looking fun. ${data.forecast.height} @ ${data.forecast.period} ${data.forecast.dir}, ${data.wind.speed} ${data.wind.dir}.`;
+        if (includeBuoyData) msg += ` Buoy ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period}. ${data.water}.`;
+        if (includeTraffic) msg += ` About ${data.drive.time}.`;
+        msg += " Could be a nice session.";
+        return msg;
+      } else {
+        let msg = `${data.spot}'s meh. ${data.forecast.height} @ ${data.forecast.period}, ${data.wind.speed} ${data.wind.dir}.`;
+        if (includeBuoyData) msg += ` Buoy ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period}. ${data.water}.`;
+        if (includeTraffic) msg += ` ${data.drive.time}.`;
+        msg += " Up to you.";
+        return msg;
+      }
+    }
+
+    // DATA NERD
+    if (selectedPersonality === "data_nerd") {
+      const status = activeCondition.charAt(0).toUpperCase() + activeCondition.slice(1);
+      let msg = `${data.spot.toUpperCase()}: ${data.forecast.height} @ ${data.forecast.period} ${data.forecast.dir} | Wind: ${data.wind.speed} ${data.wind.dir}`;
+      if (includeBuoyData) msg += ` | Buoy ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period} (${data.buoy.time}) | ${data.water}`;
+      if (includeTraffic) msg += ` | ETA: ${data.drive.time}`;
+      msg += ` | ${status}`;
+      return msg;
+    }
+
+    // HYPE BEAST
+    if (selectedPersonality === "hype_beast") {
+      if (activeCondition === "epic") {
+        let msg = includeEmoji ? "🚨🚨🚨 " : "";
+        msg += `THIS IS NOT A DRILL!! ${data.spot.toUpperCase()} IS GOING OFF - BEST GULF SWELL THIS YEAR!! ${data.forecast.height} @ ${data.forecast.period} ${data.forecast.dir}!! ${data.wind.speed} ${data.wind.dir} = GLASS!!`;
+        if (includeBuoyData) msg += ` BUOY ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period} AND BUILDING!! ${data.water}!!`;
+        if (includeTraffic) msg += ` ${data.drive.time} - BEAT THE HOUSTON TRAFFIC!!`;
+        msg += includeEmoji ? " CALL IN SICK!! 🏄‍♂️🔥🔥🔥" : " CALL IN SICK!!";
+        return msg;
+      } else if (activeCondition === "good") {
+        let msg = includeEmoji ? "🚨 " : "";
+        msg += `${data.spot.toUpperCase()} IS PUMPING!! ${data.forecast.height} @ ${data.forecast.period} ${data.forecast.dir}!! ${data.wind.speed} ${data.wind.dir}!!`;
+        if (includeBuoyData) msg += ` Buoy ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period}!! ${data.water}!!`;
+        if (includeTraffic) msg += ` ${data.drive.time} - GO GO GO!!`;
+        msg += includeEmoji ? " 🏄‍♂️🔥" : "";
+        return msg;
+      } else {
+        let msg = includeEmoji ? "👀 " : "";
+        msg += `${data.spot} hit Fair - ${data.forecast.height} @ ${data.forecast.period} ${data.forecast.dir}, ${data.wind.speed} ${data.wind.dir}.`;
+        if (includeBuoyData) msg += ` Buoy ${data.buoy.id}: ${data.buoy.height} @ ${data.buoy.period}. ${data.water}.`;
+        if (includeTraffic) msg += ` ${data.drive.time}.`;
+        msg += " Not epic but waves are waves!";
+        return msg;
+      }
+    }
+
+    return "";
+  };
+
+  const activeConfig = triggerConfig.find(t => t.condition === activeCondition)!;
 
   return (
     <div className="p-8 max-w-4xl">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">AI Personality</h1>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold tracking-tight">Message Personality</h1>
         <p className="text-muted-foreground mt-1">
-          Choose how your surf buddy talks to you. Powered by Claude 4.5.
+          Different vibes for different conditions
         </p>
       </div>
 
-      {/* Current Preview */}
-      <Card className="mb-8 bg-zinc-900/50">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5" />
-            Message Preview
-          </CardTitle>
-          <CardDescription>
-            This is what your alerts will sound like
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="glass-panel p-4 rounded-xl">
-            <div className="flex items-start gap-3">
-              <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center text-black shrink-0">
-                <MessageSquare className="w-5 h-5" />
+      {/* Condition Tabs - Large, Primary Navigation */}
+      <div className="flex gap-2 mb-4">
+        {triggerConfig.map(({ condition, label, bgColor, borderColor }) => {
+          const isActive = activeCondition === condition;
+          const emoji = personalities.find(p => p.id === personalityByCondition[condition])?.emoji;
+          return (
+            <button
+              key={condition}
+              onClick={() => setActiveCondition(condition)}
+              className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all ${
+                isActive
+                  ? `${bgColor} text-white shadow-lg`
+                  : `bg-zinc-800 text-zinc-400 hover:bg-zinc-700 border-2 border-transparent`
+              }`}
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span>{label}</span>
+                <span className="text-lg">{emoji}</span>
               </div>
-              <div className="flex-1">
-                <div className="flex justify-between items-center mb-1">
-                  <h4 className="font-semibold text-sm">Home Break</h4>
-                  <span className="text-[10px] text-muted-foreground">Just now</span>
-                </div>
-                <p className="text-sm text-zinc-200 leading-relaxed">
-                  {personalities.find((p) => p.id === selectedPersonality)?.example}
-                </p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Personality Options */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {personalities.map((personality) => (
-          <Card
-            key={personality.id}
-            className={`cursor-pointer transition-all hover:border-zinc-600 ${
-              selectedPersonality === personality.id ? 'border-primary' : ''
-            }`}
-            onClick={() => setSelectedPersonality(personality.id)}
-          >
-            <CardContent className="pt-6">
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">{personality.emoji}</span>
-                  <div>
-                    <h3 className="font-bold">{personality.name}</h3>
-                  </div>
-                </div>
-                {selectedPersonality === personality.id && (
-                  <div className="h-6 w-6 rounded-full bg-primary flex items-center justify-center">
-                    <Check className="w-4 h-4 text-primary-foreground" />
-                  </div>
-                )}
-              </div>
-              <p className="text-sm text-muted-foreground">
-                {personality.description}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Additional Settings */}
-      <Card className="mt-8">
-        <CardHeader>
-          <CardTitle>Message Settings</CardTitle>
-          <CardDescription>Fine-tune your notifications</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
-            <div>
-              <p className="font-medium">Include Emoji</p>
-              <p className="text-sm text-muted-foreground">
-                Add emoji to make messages pop
-              </p>
+      {/* Preview - Prominent, Updates Live */}
+      <Card className={`mb-6 border-2 ${activeConfig.borderColor} bg-zinc-900/50`}>
+        <CardContent className="pt-4">
+          {/* iOS Messages Style */}
+          <div className="bg-zinc-800 rounded-2xl p-4">
+            <div className="text-center mb-3 pb-2 border-b border-zinc-700">
+              <p className="text-[10px] text-zinc-500 uppercase tracking-wide">Text Message</p>
+              <p className="font-semibold text-sm text-white">Home Break (512) 555-0123</p>
             </div>
-            <Badge variant="success">On</Badge>
-          </div>
 
-          <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
-            <div>
-              <p className="font-medium">Include Buoy Data</p>
-              <p className="text-sm text-muted-foreground">
-                Show raw numbers alongside the vibe (only for spots with buoys)
-              </p>
+            <div className="flex justify-start">
+              <div className="bg-[#34C759] text-white px-4 py-2.5 rounded-2xl rounded-bl-md shadow-sm max-w-[95%]">
+                <p className="text-[14px] leading-snug">{getPreviewMessage()}</p>
+              </div>
             </div>
-            <Badge variant="secondary">Off</Badge>
-          </div>
 
-          <div className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg">
-            <div>
-              <p className="font-medium">Include Traffic</p>
-              <p className="text-sm text-muted-foreground">
-                Show drive time in alerts (requires home address)
-              </p>
+            <div className="text-center mt-2">
+              <span className="text-[11px] text-zinc-500">Just now</span>
             </div>
-            <Badge variant="success">On</Badge>
           </div>
         </CardContent>
       </Card>
 
-      {/* Save */}
-      <div className="mt-8 flex justify-end">
-        <Button size="lg">Save Personality</Button>
+      {/* Personality Selection for Active Condition */}
+      <Card className="mb-6">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base flex items-center gap-2">
+            <span className={activeConfig.color}>When {activeConfig.label}:</span>
+            <span className="text-muted-foreground font-normal text-sm">use this voice</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {personalities.map((personality) => {
+              const isSelected = personalityByCondition[activeCondition] === personality.id;
+              return (
+                <button
+                  key={personality.id}
+                  onClick={() => updatePersonalityForCondition(personality.id)}
+                  className={`p-4 rounded-xl border-2 text-left transition-all ${
+                    isSelected
+                      ? `${activeConfig.borderColor} bg-white/5`
+                      : "border-zinc-700 hover:border-zinc-500"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-2xl">{personality.emoji}</span>
+                    {isSelected && <Check className={`w-4 h-4 ${activeConfig.color}`} />}
+                  </div>
+                  <p className="font-medium text-sm">{personality.name}</p>
+                  <p className="text-xs text-muted-foreground">{personality.description}</p>
+                </button>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Message Options */}
+      <Card className="mb-6">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base">Include in Messages</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className={`flex items-center justify-between p-3 rounded-lg border ${includeEmoji ? 'border-primary bg-primary/5' : 'border-zinc-700'}`}>
+              <span className="text-sm font-medium">Emoji</span>
+              <Switch checked={includeEmoji} onChange={setIncludeEmoji} />
+            </div>
+            <div className={`flex items-center justify-between p-3 rounded-lg border ${includeBuoyData ? 'border-primary bg-primary/5' : 'border-zinc-700'}`}>
+              <span className="text-sm font-medium">Buoy Data</span>
+              <Switch checked={includeBuoyData} onChange={setIncludeBuoyData} />
+            </div>
+            <div className={`flex items-center justify-between p-3 rounded-lg border ${includeTraffic ? 'border-primary bg-primary/5' : 'border-zinc-700'}`}>
+              <span className="text-sm font-medium">Traffic</span>
+              <Switch checked={includeTraffic} onChange={setIncludeTraffic} />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Location Context - Small Footer */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <MapPin className="w-4 h-4" />
+          <span>Local flavor tuned for <span className="text-foreground">{userRegion}</span></span>
+        </div>
+        <Button size="lg">Save Settings</Button>
       </div>
     </div>
   );

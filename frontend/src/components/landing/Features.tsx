@@ -1,21 +1,21 @@
-import { Sliders, BrainCircuit, Anchor } from 'lucide-react';
+import { Sliders, BrainCircuit, Anchor } from "lucide-react";
 
 const features = [
   {
     icon: Sliders,
-    title: 'You define the Vibe',
+    title: "You define the Vibe",
     description:
       'Set your specific triggers. Define what "Fun" means to you (e.g., >3ft, <10mph wind). We monitor it so you don\'t have to.',
   },
   {
     icon: BrainCircuit,
-    title: 'AI Personality',
+    title: "Personality",
     description:
       'Powered by Claude 4.5. No robot reports ("3ft at 9s"). You get a hyped-up text that sounds like a local buddy telling you to get out there.',
   },
   {
     icon: Anchor,
-    title: 'Smart Validation',
+    title: "Smart Validation",
     description:
       "We don't just trust models. We cross-reference Open-Meteo forecasts with real-time NOAA Buoy data to ensure the swell is actually in the water.",
   },
@@ -23,7 +23,10 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="py-24 border-b border-border bg-zinc-950/30">
+    <section
+      id="features"
+      className="py-24 border-b border-border bg-zinc-950/30"
+    >
       <div className="container mx-auto px-6">
         <div className="mb-16">
           <h2 className="text-3xl font-bold tracking-tight mb-4">

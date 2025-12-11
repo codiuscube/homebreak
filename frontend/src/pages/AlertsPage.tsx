@@ -305,6 +305,12 @@ export function AlertsPage() {
                   <p>You receive one consolidated alert (not spam for each spot)</p>
                 </div>
               </div>
+              <div className="mt-4 pt-4 border-t border-border">
+                <p className="text-xs text-muted-foreground">
+                  <strong>Free tier:</strong> 1 spot, 1 trigger, 5 SMS/month. After SMS limit, Night Before alerts fall back to email.
+                  Upgrade to Unlimited for unlimited spots, triggers, and SMS.
+                </p>
+              </div>
             </div>
           </div>
         </CardContent>

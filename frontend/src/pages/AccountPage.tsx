@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { User, Phone, Mail, Shield, CreditCard } from 'lucide-react';
+import { User, Phone, Mail, Shield, CreditCard, X, Check, MapPin, MessageSquare, Infinity, Navigation, Home } from 'lucide-react';
 import {
   Card,
   CardHeader,
@@ -16,6 +16,9 @@ export function AccountPage() {
   const [email, setEmail] = useState('surfer@example.com');
   const [phoneVerified] = useState(true);
   const [emailVerified] = useState(false);
+  const [showPricingModal, setShowPricingModal] = useState(false);
+  const [currentTier] = useState<'free' | 'unlimited'>('free');
+  const [homeAddress, setHomeAddress] = useState('');
 
   return (
     <div className="p-8 max-w-4xl">
@@ -95,18 +98,48 @@ export function AccountPage() {
               )}
             </div>
             <p className="text-xs text-muted-foreground mt-2">
-              Email is used for daily digests and account notifications.
+              Email is used for account notifications and account recovery only.
             </p>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Home Address */}
+      <Card className="mb-8">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Home className="w-5 h-5" />
+            Home Address
+          </CardTitle>
+          <CardDescription>
+            Used for traffic estimates in all alerts. We never share this data.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-4">
+            <Input
+              placeholder="123 Main St, Houston, TX"
+              value={homeAddress}
+              onChange={(e) => setHomeAddress(e.target.value)}
+              className="flex-1"
+            />
+            <Button variant="outline">
+              <Navigation className="w-4 h-4 mr-2" />
+              Verify
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            Optional. Leave blank if you don't want traffic info in alerts.
+          </p>
         </CardContent>
       </Card>
 
       {/* Notification Channels */}
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle>Notification Channels</CardTitle>
+          <CardTitle>Notification Channel</CardTitle>
           <CardDescription>
-            Choose how you want to receive alerts
+            How you receive surf alerts
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -116,48 +149,50 @@ export function AccountPage() {
               <div>
                 <p className="font-medium">SMS Alerts</p>
                 <p className="text-sm text-muted-foreground">
-                  Instant text messages for real-time alerts
+                  Instant text messages when conditions match your triggers
                 </p>
               </div>
             </div>
             <Badge variant="success">Active</Badge>
           </div>
-
-          <div className="flex items-center justify-between p-4 border border-border rounded-lg">
-            <div className="flex items-center gap-3">
-              <Mail className="w-5 h-5 text-muted-foreground" />
-              <div>
-                <p className="font-medium">Email Digest</p>
-                <p className="text-sm text-muted-foreground">
-                  Daily summary of conditions
-                </p>
-              </div>
-            </div>
-            <Badge variant="secondary">Off</Badge>
-          </div>
         </CardContent>
       </Card>
 
       {/* Supporter Status */}
-      <Card className="mb-8 border-yellow-500/30 bg-yellow-500/5">
+      <Card className={`mb-8 ${currentTier === 'free' ? 'border-yellow-500/30 bg-yellow-500/5' : 'border-green-500/30 bg-green-500/5'}`}>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <CreditCard className="w-5 h-5 text-yellow-400" />
-            Supporter Status
+            <CreditCard className={`w-5 h-5 ${currentTier === 'free' ? 'text-yellow-400' : 'text-green-400'}`} />
+            Subscription
           </CardTitle>
           <CardDescription>
-            Help cover SMS and server costs
+            {currentTier === 'free' ? 'Upgrade for unlimited alerts' : 'Thanks for supporting Home Break!'}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium">Free Tier</p>
-              <p className="text-sm text-muted-foreground">
-                50 SMS credits remaining this month
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="font-medium">{currentTier === 'free' ? 'Free Tier' : 'Unlimited Tier'}</p>
+                <Badge variant={currentTier === 'free' ? 'warning' : 'success'}>
+                  {currentTier === 'free' ? 'Current' : 'Active'}
+                </Badge>
+              </div>
+              {currentTier === 'free' ? (
+                <p className="text-sm text-muted-foreground mt-1">
+                  1 spot • 1 trigger • 3 of 5 SMS remaining
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground mt-1">
+                  Unlimited spots • Unlimited triggers • Unlimited SMS
+                </p>
+              )}
             </div>
-            <Button>Become a Supporter</Button>
+            {currentTier === 'free' ? (
+              <Button onClick={() => setShowPricingModal(true)}>Upgrade</Button>
+            ) : (
+              <Button variant="outline">Manage</Button>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -190,6 +225,128 @@ export function AccountPage() {
       <div className="mt-8 flex justify-end">
         <Button size="lg">Save Changes</Button>
       </div>
+
+      {/* Pricing Modal */}
+      {showPricingModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setShowPricingModal(false)}
+          />
+
+          {/* Modal */}
+          <div className="relative bg-background border border-border rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-border">
+              <div>
+                <h2 className="text-xl font-bold">Choose Your Plan</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Simple pricing. Cancel anytime.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowPricingModal(false)}
+                className="p-2 hover:bg-secondary rounded-md transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Pricing Cards */}
+            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Free Tier */}
+              <div className={`border rounded-xl p-6 ${currentTier === 'free' ? 'border-primary bg-primary/5' : 'border-border'}`}>
+                {currentTier === 'free' && (
+                  <Badge variant="secondary" className="mb-4">Current Plan</Badge>
+                )}
+                <h3 className="text-lg font-bold">Free</h3>
+                <div className="mt-2 mb-4">
+                  <span className="text-3xl font-bold">$0</span>
+                  <span className="text-muted-foreground">/month</span>
+                </div>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Perfect for trying out Home Break
+                </p>
+
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-center gap-2 text-sm">
+                    <MapPin className="w-4 h-4 text-muted-foreground" />
+                    <span>1 spot</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-sm">
+                    <Check className="w-4 h-4 text-muted-foreground" />
+                    <span>1 trigger</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-sm">
+                    <MessageSquare className="w-4 h-4 text-muted-foreground" />
+                    <span>5 SMS alerts per month</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-sm">
+                    <Mail className="w-4 h-4 text-muted-foreground" />
+                    <span>Email fallback after SMS limit</span>
+                  </li>
+                </ul>
+
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  disabled={currentTier === 'free'}
+                >
+                  {currentTier === 'free' ? 'Current Plan' : 'Downgrade'}
+                </Button>
+              </div>
+
+              {/* Unlimited Tier */}
+              <div className="border-2 border-green-500 rounded-xl p-6 relative bg-green-500/5">
+                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white">
+                  Recommended
+                </Badge>
+                <h3 className="text-lg font-bold mt-2">Unlimited</h3>
+                <div className="mt-2 mb-4">
+                  <span className="text-3xl font-bold">$5</span>
+                  <span className="text-muted-foreground">/month</span>
+                </div>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Never miss a session
+                </p>
+
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-center gap-2 text-sm">
+                    <Infinity className="w-4 h-4 text-green-500" />
+                    <span className="font-medium">Unlimited spots</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-sm">
+                    <Infinity className="w-4 h-4 text-green-500" />
+                    <span className="font-medium">Unlimited triggers</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-sm">
+                    <Infinity className="w-4 h-4 text-green-500" />
+                    <span className="font-medium">Unlimited SMS alerts</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-sm">
+                    <Check className="w-4 h-4 text-green-500" />
+                    <span>All alert types</span>
+                  </li>
+                </ul>
+
+                <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+                  {currentTier === 'unlimited' ? 'Current Plan' : 'Upgrade to Unlimited'}
+                </Button>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="p-6 border-t border-border bg-secondary/30">
+              <p className="text-xs text-muted-foreground text-center">
+                All plans include real-time buoy data, forecast checks, and popup alerts.
+                <br />
+                Cancel anytime. No questions asked.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
