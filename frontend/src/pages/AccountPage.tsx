@@ -1,5 +1,18 @@
-import { useState } from 'react';
-import { User, Phone, Mail, Shield, CreditCard, X, Check, MapPin, MessageSquare, Infinity, Navigation, Home } from 'lucide-react';
+import { useState } from "react";
+import {
+  User,
+  Phone,
+  Mail,
+  Shield,
+  CreditCard,
+  X,
+  Check,
+  MapPin,
+  MessageSquare,
+  Infinity,
+  Navigation,
+  Home,
+} from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -9,16 +22,16 @@ import {
   Button,
   Input,
   Badge,
-} from '../components/ui';
+} from "../components/ui";
 
 export function AccountPage() {
-  const [phone, setPhone] = useState('+1 (555) 123-4567');
-  const [email, setEmail] = useState('surfer@example.com');
+  const [phone, setPhone] = useState("+1 (555) 123-4567");
+  const [email, setEmail] = useState("surfer@example.com");
   const [phoneVerified] = useState(true);
   const [emailVerified] = useState(false);
   const [showPricingModal, setShowPricingModal] = useState(false);
-  const [currentTier] = useState<'free' | 'unlimited'>('free');
-  const [homeAddress, setHomeAddress] = useState('');
+  const [currentTier] = useState<"free" | "unlimited">("free");
+  const [homeAddress, setHomeAddress] = useState("");
 
   return (
     <div className="p-8 max-w-4xl">
@@ -37,9 +50,7 @@ export function AccountPage() {
             <User className="w-5 h-5" />
             Contact Information
           </CardTitle>
-          <CardDescription>
-            Where we send your surf alerts
-          </CardDescription>
+          <CardDescription>Where we send your surf alerts</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Phone */}
@@ -63,9 +74,7 @@ export function AccountPage() {
                 placeholder="+1 (555) 123-4567"
                 className="flex-1"
               />
-              {!phoneVerified && (
-                <Button variant="outline">Verify</Button>
-              )}
+              {!phoneVerified && <Button variant="outline">Verify</Button>}
             </div>
             <p className="text-xs text-muted-foreground mt-2">
               We use SMS for instant alerts. Standard messaging rates may apply.
@@ -93,12 +102,11 @@ export function AccountPage() {
                 placeholder="surfer@example.com"
                 className="flex-1"
               />
-              {!emailVerified && (
-                <Button variant="outline">Verify</Button>
-              )}
+              {!emailVerified && <Button variant="outline">Verify</Button>}
             </div>
             <p className="text-xs text-muted-foreground mt-2">
-              Email is used for account notifications and account recovery only.
+              Email is used for fallback messages, account notifications, and
+              account recovery only.
             </p>
           </div>
         </CardContent>
@@ -137,48 +145,94 @@ export function AccountPage() {
       {/* Notification Channels */}
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle>Notification Channel</CardTitle>
-          <CardDescription>
-            How you receive surf alerts
-          </CardDescription>
+          <CardTitle>Notification Channels</CardTitle>
+          <CardDescription>How you receive surf alerts</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+        <CardContent className="space-y-3">
+          {/* SMS - Primary */}
+          <div className="flex items-center justify-between p-4 border-2 border-green-500/50 bg-green-500/5 rounded-lg">
             <div className="flex items-center gap-3">
-              <Phone className="w-5 h-5 text-muted-foreground" />
+              <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                <Phone className="w-5 h-5 text-green-400" />
+              </div>
               <div>
-                <p className="font-medium">SMS Alerts</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-medium">SMS</p>
+                  <Badge variant="success" className="text-[10px]">Primary</Badge>
+                </div>
                 <p className="text-sm text-muted-foreground">
-                  Instant text messages when conditions match your triggers
+                  Instant texts when conditions match triggers
                 </p>
               </div>
             </div>
             <Badge variant="success">Active</Badge>
           </div>
+
+          {/* Email - Fallback */}
+          <div className="flex items-center justify-between p-4 border border-zinc-700 rounded-lg">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center">
+                <Mail className="w-5 h-5 text-zinc-400" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <p className="font-medium text-zinc-400">Email</p>
+                  <Badge variant="secondary" className="text-[10px]">Fallback</Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {currentTier === "free"
+                    ? "Used when SMS limit reached (Night Before alerts only)"
+                    : "Backup if SMS delivery fails"
+                  }
+                </p>
+              </div>
+            </div>
+            <span className="text-xs text-zinc-500">Auto-enabled</span>
+          </div>
+
+          {/* Explanation */}
+          <p className="text-xs text-muted-foreground pt-2">
+            SMS is always primary. Email automatically kicks in as a fallback
+            {currentTier === "free" && " after your 5 monthly SMS alerts are used"}.
+          </p>
         </CardContent>
       </Card>
 
       {/* Supporter Status */}
-      <Card className={`mb-8 ${currentTier === 'free' ? 'border-yellow-500/30 bg-yellow-500/5' : 'border-green-500/30 bg-green-500/5'}`}>
+      <Card
+        className={`mb-8 ${
+          currentTier === "free"
+            ? "border-yellow-500/30 bg-yellow-500/5"
+            : "border-green-500/30 bg-green-500/5"
+        }`}
+      >
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <CreditCard className={`w-5 h-5 ${currentTier === 'free' ? 'text-yellow-400' : 'text-green-400'}`} />
+            <CreditCard
+              className={`w-5 h-5 ${
+                currentTier === "free" ? "text-yellow-400" : "text-green-400"
+              }`}
+            />
             Subscription
           </CardTitle>
           <CardDescription>
-            {currentTier === 'free' ? 'Upgrade for unlimited alerts' : 'Thanks for supporting Home Break!'}
+            {currentTier === "free"
+              ? "Upgrade for unlimited alerts"
+              : "Thanks for supporting Home Break!"}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2">
-                <p className="font-medium">{currentTier === 'free' ? 'Free Tier' : 'Unlimited Tier'}</p>
-                <Badge variant={currentTier === 'free' ? 'warning' : 'success'}>
-                  {currentTier === 'free' ? 'Current' : 'Active'}
+                <p className="font-medium">
+                  {currentTier === "free" ? "Free Tier" : "Unlimited Tier"}
+                </p>
+                <Badge variant={currentTier === "free" ? "warning" : "success"}>
+                  {currentTier === "free" ? "Current" : "Active"}
                 </Badge>
               </div>
-              {currentTier === 'free' ? (
+              {currentTier === "free" ? (
                 <p className="text-sm text-muted-foreground mt-1">
                   1 spot • 1 trigger • 3 of 5 SMS remaining
                 </p>
@@ -188,7 +242,7 @@ export function AccountPage() {
                 </p>
               )}
             </div>
-            {currentTier === 'free' ? (
+            {currentTier === "free" ? (
               <Button onClick={() => setShowPricingModal(true)}>Upgrade</Button>
             ) : (
               <Button variant="outline">Manage</Button>
@@ -256,9 +310,17 @@ export function AccountPage() {
             {/* Pricing Cards */}
             <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Free Tier */}
-              <div className={`border rounded-xl p-6 ${currentTier === 'free' ? 'border-primary bg-primary/5' : 'border-border'}`}>
-                {currentTier === 'free' && (
-                  <Badge variant="secondary" className="mb-4">Current Plan</Badge>
+              <div
+                className={`border rounded-xl p-6 ${
+                  currentTier === "free"
+                    ? "border-primary bg-primary/5"
+                    : "border-border"
+                }`}
+              >
+                {currentTier === "free" && (
+                  <Badge variant="secondary" className="mb-4">
+                    Current Plan
+                  </Badge>
                 )}
                 <h3 className="text-lg font-bold">Free</h3>
                 <div className="mt-2 mb-4">
@@ -291,9 +353,9 @@ export function AccountPage() {
                 <Button
                   variant="outline"
                   className="w-full"
-                  disabled={currentTier === 'free'}
+                  disabled={currentTier === "free"}
                 >
-                  {currentTier === 'free' ? 'Current Plan' : 'Downgrade'}
+                  {currentTier === "free" ? "Current Plan" : "Downgrade"}
                 </Button>
               </div>
 
@@ -331,7 +393,9 @@ export function AccountPage() {
                 </ul>
 
                 <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
-                  {currentTier === 'unlimited' ? 'Current Plan' : 'Upgrade to Unlimited'}
+                  {currentTier === "unlimited"
+                    ? "Current Plan"
+                    : "Upgrade to Unlimited"}
                 </Button>
               </div>
             </div>
@@ -339,7 +403,8 @@ export function AccountPage() {
             {/* Footer */}
             <div className="p-6 border-t border-border bg-secondary/30">
               <p className="text-xs text-muted-foreground text-center">
-                All plans include real-time buoy data, forecast checks, and popup alerts.
+                All plans include real-time buoy data, forecast checks, and
+                popup alerts.
                 <br />
                 Cancel anytime. No questions asked.
               </p>
