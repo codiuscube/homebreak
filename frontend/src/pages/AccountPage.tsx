@@ -61,9 +61,9 @@ export function AccountPage() {
                 Phone Number (SMS)
               </span>
               {phoneVerified ? (
-                <Badge variant="success">Verified</Badge>
+                <Badge variant="outline">Verified</Badge>
               ) : (
-                <Badge variant="warning">Unverified</Badge>
+                <Badge variant="secondary">Unverified</Badge>
               )}
             </label>
             <div className="flex gap-2">
@@ -89,9 +89,9 @@ export function AccountPage() {
                 Email Address
               </span>
               {emailVerified ? (
-                <Badge variant="success">Verified</Badge>
+                <Badge variant="outline">Verified</Badge>
               ) : (
-                <Badge variant="warning">Unverified</Badge>
+                <Badge variant="secondary">Unverified</Badge>
               )}
             </label>
             <div className="flex gap-2">
@@ -150,22 +150,22 @@ export function AccountPage() {
         </CardHeader>
         <CardContent className="space-y-3">
           {/* SMS - Primary */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 gap-3 border-2 border-green-500/50 bg-green-500/5 rounded-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 gap-3 border border-border bg-secondary/20 rounded-lg">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                <Phone className="w-5 h-5 text-green-400" />
+              <div className="w-10 h-10 rounded-full bg-background flex items-center justify-center">
+                <Phone className="w-5 h-5 text-foreground" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <p className="font-medium">SMS</p>
-                  <Badge variant="success" className="text-[10px]">Primary</Badge>
+                  <Badge variant="default" className="text-[10px]">Primary</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Instant texts when conditions match triggers
                 </p>
               </div>
             </div>
-            <Badge variant="success">Active</Badge>
+            <Badge variant="outline">Active</Badge>
           </div>
 
           {/* Email - Fallback */}
@@ -200,16 +200,12 @@ export function AccountPage() {
 
       {/* Supporter Status */}
       <Card
-        className={`mb-6 lg:mb-8 ${currentTier === "free"
-            ? "border-yellow-500/30 bg-yellow-500/5"
-            : "border-green-500/30 bg-green-500/5"
-          }`}
+        className={`mb-6 lg:mb-8 border-border bg-card`}
       >
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <CreditCard
-              className={`w-5 h-5 ${currentTier === "free" ? "text-yellow-400" : "text-green-400"
-                }`}
+              className="w-5 h-5 text-foreground"
             />
             Subscription
           </CardTitle>
@@ -226,7 +222,7 @@ export function AccountPage() {
                 <p className="font-medium">
                   {currentTier === "free" ? "Free Tier" : "Unlimited Tier"}
                 </p>
-                <Badge variant={currentTier === "free" ? "warning" : "success"}>
+                <Badge variant={currentTier === "free" ? "secondary" : "default"}>
                   {currentTier === "free" ? "Current" : "Active"}
                 </Badge>
               </div>
@@ -310,8 +306,8 @@ export function AccountPage() {
               {/* Free Tier */}
               <div
                 className={`border rounded-xl p-6 ${currentTier === "free"
-                    ? "border-primary bg-primary/5"
-                    : "border-border"
+                  ? "border-primary bg-secondary/20"
+                  : "border-border"
                   }`}
               >
                 {currentTier === "free" && (
@@ -357,8 +353,8 @@ export function AccountPage() {
               </div>
 
               {/* Unlimited Tier */}
-              <div className="border-2 border-green-500 rounded-xl p-6 relative bg-green-500/5">
-                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white">
+              <div className="border border-input rounded-xl p-6 relative bg-background shadow-sm">
+                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
                   Recommended
                 </Badge>
                 <h3 className="text-lg font-bold mt-2">Unlimited</h3>
@@ -372,24 +368,24 @@ export function AccountPage() {
 
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-center gap-2 text-sm">
-                    <Infinity className="w-4 h-4 text-green-500" />
+                    <Infinity className="w-4 h-4 text-primary" />
                     <span className="font-medium">Unlimited spots</span>
                   </li>
                   <li className="flex items-center gap-2 text-sm">
-                    <Infinity className="w-4 h-4 text-green-500" />
+                    <Infinity className="w-4 h-4 text-primary" />
                     <span className="font-medium">Unlimited triggers</span>
                   </li>
                   <li className="flex items-center gap-2 text-sm">
-                    <Infinity className="w-4 h-4 text-green-500" />
+                    <Infinity className="w-4 h-4 text-primary" />
                     <span className="font-medium">Unlimited SMS alerts</span>
                   </li>
                   <li className="flex items-center gap-2 text-sm">
-                    <Check className="w-4 h-4 text-green-500" />
+                    <Check className="w-4 h-4 text-primary" />
                     <span>All alert types</span>
                   </li>
                 </ul>
 
-                <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+                <Button className="w-full">
                   {currentTier === "unlimited"
                     ? "Current Plan"
                     : "Upgrade to Unlimited"}

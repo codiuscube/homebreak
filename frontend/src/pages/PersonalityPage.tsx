@@ -47,9 +47,9 @@ const personalities: Personality[] = [
 ];
 
 const triggerConfig: { condition: TriggerCondition; label: string; color: string; bgColor: string; borderColor: string; description: string }[] = [
-  { condition: "fair", label: "Fair", color: "text-yellow-400", bgColor: "bg-yellow-500", borderColor: "border-yellow-500", description: "Met minimum threshold" },
-  { condition: "good", label: "Good", color: "text-green-400", bgColor: "bg-green-500", borderColor: "border-green-500", description: "Solid, worth the drive" },
-  { condition: "epic", label: "Epic", color: "text-purple-400", bgColor: "bg-purple-500", borderColor: "border-purple-500", description: "Drop everything" },
+  { condition: "fair", label: "Fair", color: "text-muted-foreground", bgColor: "bg-muted", borderColor: "border-border", description: "Met minimum threshold" },
+  { condition: "good", label: "Good", color: "text-foreground", bgColor: "bg-secondary", borderColor: "border-secondary", description: "Solid, worth the drive" },
+  { condition: "epic", label: "Epic", color: "text-primary-foreground", bgColor: "bg-primary", borderColor: "border-primary", description: "Drop everything" },
 ];
 
 export function PersonalityPage() {
@@ -225,7 +225,7 @@ export function PersonalityPage() {
             </div>
 
             <div className="flex justify-start">
-              <div className="bg-[#34C759] text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl rounded-bl-md shadow-sm max-w-[98%] sm:max-w-[95%]">
+              <div className="bg-primary text-primary-foreground px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl rounded-bl-md shadow-sm max-w-[98%] sm:max-w-[95%]">
                 <p className="text-[13px] sm:text-[14px] leading-snug">{getPreviewMessage()}</p>
               </div>
             </div>

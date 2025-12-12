@@ -127,12 +127,12 @@ export function SpotPage() {
 
       {/* My Saved Spots */}
       {mySpots.length > 0 && (
-        <Card className="mb-6 border-green-500/30 bg-green-500/5">
+        <Card className="mb-6 border-border bg-secondary/10">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-green-400" />
+              <MapPin className="w-5 h-5 text-foreground" />
               My Saved Spots
-              <Badge variant="success">{mySpots.length}</Badge>
+              <Badge variant="secondary">{mySpots.length}</Badge>
             </CardTitle>
             <CardDescription>
               Your spots will receive alerts based on your triggers.
@@ -145,8 +145,8 @@ export function SpotPage() {
                 className="flex flex-col sm:flex-row sm:items-center justify-between p-3 border border-border rounded-lg bg-background gap-3"
               >
                 <div className="flex items-start gap-3 min-w-0">
-                  <div className="h-10 w-10 rounded-lg bg-green-500/20 flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5 text-green-400" />
+                  <div className="h-10 w-10 rounded-lg bg-secondary flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5 text-foreground" />
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-medium truncate">{spot.name}</h4>
@@ -222,7 +222,7 @@ export function SpotPage() {
               return (
                 <Card
                   key={spot.id}
-                  className={`transition-all ${saved ? "border-green-500/50 bg-green-500/5" : "hover:border-zinc-600"
+                  className={`transition-all ${saved ? "border-primary bg-secondary/20" : "hover:border-zinc-600"
                     }`}
                 >
                   <CardContent className="pt-6">
@@ -237,8 +237,8 @@ export function SpotPage() {
                         </p>
                       </div>
                       {saved ? (
-                        <div className="h-6 w-6 rounded-full bg-green-500 flex items-center justify-center">
-                          <Check className="w-4 h-4 text-white" />
+                        <div className="h-6 w-6 rounded-full bg-primary flex items-center justify-center">
+                          <Check className="w-4 h-4 text-primary-foreground" />
                         </div>
                       ) : (
                         <Button

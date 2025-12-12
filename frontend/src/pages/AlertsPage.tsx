@@ -126,14 +126,11 @@ export function AlertsPage() {
                 <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                   <div
                     className={`h-12 w-12 rounded-lg flex items-center justify-center shrink-0 ${schedule.enabled
-                        ? 'bg-primary/20'
-                        : 'bg-secondary'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-secondary text-muted-foreground'
                       }`}
                   >
-                    <Icon
-                      className={`w-6 h-6 ${schedule.enabled ? 'text-primary' : 'text-muted-foreground'
-                        }`}
-                    />
+                    <Icon className="w-6 h-6" />
                   </div>
 
                   <div className="flex-1">
@@ -141,7 +138,7 @@ export function AlertsPage() {
                       <div className="flex items-center gap-3">
                         <h3 className="font-bold">{schedule.name}</h3>
                         {schedule.type === 'popup' && (
-                          <Badge variant="warning">Real-time</Badge>
+                          <Badge variant="outline">Real-time</Badge>
                         )}
                       </div>
                       <Switch
@@ -205,8 +202,8 @@ export function AlertsPage() {
                                 key={day}
                                 onClick={() => toggleDay(schedule.id, day)}
                                 className={`w-9 h-9 sm:w-10 sm:h-10 rounded-md text-xs font-medium transition-colors ${schedule.days.includes(day)
-                                    ? 'bg-primary text-primary-foreground'
-                                    : 'bg-secondary text-muted-foreground hover:bg-secondary/80'
+                                  ? 'bg-primary text-primary-foreground'
+                                  : 'bg-transparent border border-border text-muted-foreground hover:bg-secondary'
                                   }`}
                               >
                                 {day}

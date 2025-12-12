@@ -63,7 +63,7 @@ export function Slider({
   return (
     <div
       ref={trackRef}
-      className={`relative h-2 w-full cursor-pointer rounded-full bg-secondary ${className}`}
+      className={`relative h-1.5 w-full cursor-pointer rounded-full bg-muted/50 hover:bg-muted transition-colors ${className}`}
       onMouseDown={handleMouseDown}
     >
       <div
@@ -71,7 +71,7 @@ export function Slider({
         style={{ width: `${percentage}%` }}
       />
       <div
-        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-5 w-5 rounded-full border-2 border-primary bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-4 w-4 rounded-full border border-primary/50 bg-background shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         style={{ left: `${percentage}%` }}
       />
     </div>

@@ -81,11 +81,11 @@ const recentAlerts = [
 ];
 
 const statusConfig = {
-  epic: { label: 'Epic', color: 'bg-purple-500/20 text-purple-400 border-purple-500/30', dotColor: 'bg-purple-500' },
-  good: { label: 'Good', color: 'bg-green-500/20 text-green-400 border-green-500/30', dotColor: 'bg-green-500' },
-  fair: { label: 'Fair', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30', dotColor: 'bg-yellow-500' },
-  poor: { label: 'Poor', color: 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30', dotColor: 'bg-zinc-500' },
-  unknown: { label: 'No Buoy', color: 'bg-orange-500/20 text-orange-400 border-orange-500/30', dotColor: 'bg-orange-500' },
+  epic: { label: 'Epic', color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20', dotColor: 'bg-emerald-500' },
+  good: { label: 'Good', color: 'bg-emerald-500/5 text-emerald-400 border-emerald-500/10', dotColor: 'bg-emerald-900' },
+  fair: { label: 'Fair', color: 'bg-blue-500/5 text-blue-400 border-blue-500/10', dotColor: 'bg-blue-900' },
+  poor: { label: 'Poor', color: 'bg-zinc-500/5 text-zinc-400 border-zinc-500/10', dotColor: 'bg-zinc-800' },
+  unknown: { label: 'No Buoy', color: 'bg-zinc-500/5 text-zinc-500 border-zinc-500/10', dotColor: 'bg-zinc-900' },
 };
 
 export function DashboardOverview() {
@@ -116,8 +116,8 @@ export function DashboardOverview() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-4">
-              <div className="h-10 w-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-blue-400" />
+              <div className="h-10 w-10 rounded-lg bg-secondary flex items-center justify-center">
+                <MapPin className="w-5 h-5 text-muted-foreground" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{userSpots.length}</p>
@@ -158,8 +158,8 @@ export function DashboardOverview() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-4">
-              <div className="h-10 w-10 rounded-lg bg-yellow-500/20 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-yellow-400" />
+              <div className="h-10 w-10 rounded-lg bg-secondary flex items-center justify-center">
+                <Clock className="w-5 h-5 text-muted-foreground" />
               </div>
               <div>
                 <p className="text-2xl font-bold">6:00 AM</p>
@@ -172,8 +172,8 @@ export function DashboardOverview() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-4">
-              <div className="h-10 w-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                <Zap className="w-5 h-5 text-purple-400" />
+              <div className="h-10 w-10 rounded-lg bg-secondary flex items-center justify-center">
+                <Zap className="w-5 h-5 text-muted-foreground" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{totalAlerts}</p>
@@ -219,7 +219,7 @@ export function DashboardOverview() {
                           Buoy: {spot.buoyId} ({spot.buoyName})
                         </p>
                       ) : (
-                        <p className="text-xs text-orange-400 mt-0.5">
+                        <p className="text-xs text-muted-foreground mt-0.5">
                           No buoy assigned - select one to get conditions
                         </p>
                       )}
@@ -296,13 +296,13 @@ export function DashboardOverview() {
                           </div>
                         </div>
                       ) : (
-                        <div className="p-4 border border-orange-500/30 bg-orange-500/10 rounded-lg">
-                          <p className="text-sm text-orange-300">
+                        <div className="p-4 border border-border bg-secondary/10 rounded-lg">
+                          <p className="text-sm text-muted-foreground">
                             No buoy assigned to this spot. Assign a buoy to see real-time conditions and enable alerts.
                           </p>
                           <Link
                             to="/dashboard/spot"
-                            className="inline-block mt-2 text-sm text-orange-400 hover:text-orange-300 font-medium"
+                            className="inline-block mt-2 text-sm text-primary hover:underline font-medium"
                           >
                             Assign Buoy →
                           </Link>

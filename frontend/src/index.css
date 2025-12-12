@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -90,15 +90,48 @@ body {
   /* Tech vibe */
 }
 
-/* Typography Overrides */
-/* Typography Overrides - MOVED TO UTILITY CLASSES
-.marketing-heading {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  letter-spacing: -0.05em;
-  font-weight: 800;
-} 
-*/
+/* DASHBOARD THEME OVERRIDES */
+.theme-dashboard {
+  /* Zinc - Dark Mode Default */
+  --background: #09090b;
+  --foreground: #fafafa;
+
+  --card: #09090b;
+  --card-foreground: #fafafa;
+
+  --popover: #09090b;
+  --popover-foreground: #fafafa;
+
+  --primary: #fafafa;
+  --primary-foreground: #18181b;
+
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+
+  --destructive: #7f1d1d;
+  --destructive-foreground: #fafafa;
+
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #d4d4d8;
+
+  --radius: 0.5rem;
+
+  /* Override fonts for dashboard */
+  font-family: "Inter", system-ui, sans-serif !important;
+}
+
+/* Make sure dashboard body follows theme */
+.theme-dashboard {
+  background-color: var(--background);
+  color: var(--foreground);
+}
 
 /* UTILITIES & EFFECTS */
 
@@ -347,4 +380,11 @@ body {
   opacity: 0.15;
   height: 20px;
   /* thinner scanline */
+}
+
+/* Dashboard Minimal Utilities */
+.theme-dashboard button {
+  font-family: "Inter", system-ui, sans-serif;
+  text-transform: none;
+  box-shadow: none;
 }

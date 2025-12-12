@@ -102,9 +102,9 @@ const directionOptions = [
 ];
 
 const conditionColors = {
-  fair: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-  good: "bg-green-500/20 text-green-400 border-green-500/30",
-  epic: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+  fair: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  good: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  epic: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30 ring-1 ring-emerald-500/20",
 };
 
 export function TriggersPage() {
@@ -409,9 +409,9 @@ export function TriggersPage() {
                             onClick={() =>
                               toggleSwellDirection(trigger.id, dir.value)
                             }
-                            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${trigger.swellDirection.includes(dir.value)
-                                ? "bg-primary text-primary-foreground"
-                                : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors border ${trigger.swellDirection.includes(dir.value)
+                              ? "bg-primary text-primary-foreground border-primary"
+                              : "bg-transparent text-muted-foreground border-border hover:bg-secondary hover:text-foreground"
                               }`}
                           >
                             {dir.label}
@@ -436,9 +436,9 @@ export function TriggersPage() {
                             onClick={() =>
                               toggleWindDirection(trigger.id, dir.value)
                             }
-                            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${trigger.windDirections.includes(dir.value)
-                                ? "bg-green-500 text-white"
-                                : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors border ${trigger.windDirections.includes(dir.value)
+                              ? "bg-primary text-primary-foreground border-primary"
+                              : "bg-transparent text-muted-foreground border-border hover:bg-secondary hover:text-foreground"
                               }`}
                           >
                             {dir.label}
