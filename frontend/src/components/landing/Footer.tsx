@@ -1,4 +1,4 @@
-import { Waves } from 'lucide-react';
+import { Logo } from '../ui/Logo';
 
 export function Footer() {
   return (
@@ -11,7 +11,7 @@ export function Footer() {
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
         <div className="flex flex-col items-center md:items-start gap-2">
           <div className="flex items-center gap-2 text-brand-acid group">
-            <Waves className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            <Logo className="w-5 h-5 group-hover:rotate-12 transition-transform" />
             <span className="font-bold font-display tracking-tighter uppercase text-xl text-white">
               ITSPUMPING.AI
             </span>

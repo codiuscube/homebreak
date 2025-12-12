@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import {
-  Waves,
   LayoutDashboard,
   MapPin,
   Sliders,
@@ -13,6 +12,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { Logo } from "../ui/Logo";
 
 const navItems = [
   { to: "/dashboard", icon: LayoutDashboard, label: "Overview", end: true },
@@ -47,7 +47,7 @@ export function Sidebar() {
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 h-16 border-b border-sidebar-border bg-sidebar-background flex items-center justify-between px-6 bg-background/80 backdrop-blur-md">
         <NavLink to="/" className="flex items-center gap-2.5 group">
           <div className="p-1.5 rounded-lg bg-secondary group-hover:bg-muted transition-colors">
-            <Waves className="w-5 h-5 text-foreground" />
+            <Logo className="w-5 h-5 text-foreground" />
           </div>
           <span className="font-bold tracking-tight uppercase text-lg">
             Homebreak
@@ -85,7 +85,7 @@ export function Sidebar() {
         <div className="h-16 flex items-center px-6 border-b border-sidebar-border/50">
           <NavLink to="/" className="flex items-center gap-2.5 group">
             <div className="p-1.5 rounded-lg bg-secondary group-hover:bg-muted transition-colors">
-              <Waves className="w-5 h-5 text-foreground" />
+              <Logo className="w-5 h-5 text-foreground" />
             </div>
             <span className="font-bold text-lg tracking-tight text-white/90">
               ITSPUMPING.AI
