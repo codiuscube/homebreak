@@ -1,12 +1,29 @@
 # Home Break
 
-The invisible surf check. No ads. No social feeds. No noise.
+The invisible surf check. No apps to check. No forecasts to analyze. Just texts from your surf buddy when it's actually worth the drive.
 
 ## Vision
 
-Home Break is a lightweight, "invisible" surf alert system that runs in the background and texts you only when your spot is actually firing. It combines real data (NOAA buoys, Open-Meteo) with an Personality engine to deliver alerts that feel like a text from a local buddy.
+Home Break is a lightweight, "invisible" surf alert system that runs in the background and texts you only when your spot is actually firing. It combines real data (NOAA buoys, Open-Meteo) with a personality engine to deliver alerts that feel like a text from a local buddy.
 
 **The Trust Metric**: Users don't double-check Surfline after receiving a Home Break alert. They just grab their keys.
+
+## Marketing Site Features
+
+The marketing site is built with React + Vite + Tailwind CSS and includes:
+
+### Location-Aware Personalization
+- Automatically detects user's location via browser geolocation
+- Finds the nearest surf spot from 25+ popular spots across the US
+- All marketing content dynamically updates with the user's local spot name
+- Default: Blacks Beach (San Diego) if location unavailable
+
+### Smart Triggers Carousel
+Interactive carousel showcasing the three alert types with hype-inducing surf photography and example text message bubbles.
+
+### Coming Soon Mode
+- On localhost: Full navigation enabled for development
+- On production (Vercel/custom domain): Action buttons show "Coming Soon" modal
 
 ## How It Works
 
@@ -14,9 +31,9 @@ Home Break is a lightweight, "invisible" surf alert system that runs in the back
 
 | Trigger                   | Time                    | Purpose                                                                                               |
 | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------- |
-| **Night Before Hype**     | 8:00 PM (user timezone) | Checks tomorrow's forecast against your "Good" tier. Helps you plan your alarm.                       |
-| **Morning Reality Check** | 6:00 AM (user timezone) | Validates live buoy data, checks traffic, gives you a Go/No-Go with drive time.                       |
-| **Pop-Up Alert**          | Every 2 hours           | Catches wind switches or sudden pulse arrivals. Only fires when conditions flip from "Bad" to "Good". |
+| **Night Before Hype**     | 8:00 PM (user timezone) | Checks tomorrow's forecast against your triggers. Get hyped or sleep in.                              |
+| **Morning Reality Check** | 6:00 AM (user timezone) | Live buoy validation + real-time traffic estimates so you know exactly when to leave.                 |
+| **Pop-Up Alert**          | Every 2 hours           | Catches wind switches or sudden pulse arrivals. Know exactly how long to drop everything and go.      |
 
 ### Anti-Spam Logic
 
@@ -35,25 +52,27 @@ NOAA buoys go offline frequently. When that happens:
 
 ## Features
 
-- **You Define the Vibe** - Set tiered triggers (e.g., "Lunch Break" = 2ft+, "Dawn Patrol" = 4ft+ offshore)
-- **Personality** - Claude Haiku 4.5 transforms raw data into hyped, human-like messages
-- **Smart Validation** - Cross-references forecasts with real-time buoy data
+- **You Define the Vibe** - Dial in your perfect conditions. Set custom ranges for wave height, swell period, swell direction, wind speed, and more.
+- **Multiple Spots, One App** - Monitor all your go-to breaks simultaneously with different triggers for each spot.
+- **Your Surf Buddy** - Pick your vibe: Stoked Local (hyped buddy energy), Chill Surfer (laid back), Data Nerd (just the facts), or Hype Beast (maximum send).
+- **No Spam, Only Signals** - Cross-references forecasts with real-time NOAA buoy data. Smart cooldowns mean you only hear from us when it matters.
+- **Traffic Integration** - Real-time drive time estimates included in every alert.
 - **Pause Alerts** - Simple toggle to snooze when traveling or injured
 - **SMS Compliance** - Handles STOP commands automatically
 
 ## Tech Stack
 
-| Layer    | Technology                            |
-| -------- | ------------------------------------- |
-| Frontend | Next.js 14 + Shadcn UI + Tailwind CSS |
-| Backend  | Next.js API Routes (Serverless)       |
-| Database | Supabase (Postgres + Auth)            |
-| AI       | Claude Haiku 4.5                      |
-| Weather  | Open-Meteo Marine API                 |
-| Buoys    | NOAA Raw Text Files                   |
-| Traffic  | Google Distance Matrix API            |
-| SMS      | Twilio                                |
-| Hosting  | Vercel                                |
+| Layer            | Technology                     |
+| ---------------- | ------------------------------ |
+| Frontend         | React + Vite + Tailwind CSS    |
+| Backend          | TBD (Serverless)               |
+| Database         | Supabase (Postgres + Auth)     |
+| AI               | Claude Haiku 4.5               |
+| Weather          | Open-Meteo Marine API          |
+| Buoys            | NOAA Raw Text Files            |
+| Traffic          | Google Distance Matrix API     |
+| SMS              | Twilio                         |
+| Hosting          | Vercel                         |
 
 ## Data Model
 
@@ -189,15 +208,33 @@ POST /api/webhook/sms        # Handle STOP replies
 
 ```
 homebreak-project/
-├── index.html          # Marketing site
+├── frontend/                    # React + Vite marketing site & dashboard
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── landing/         # Landing page components (Hero, Features, HowItWorks, etc.)
+│   │   │   ├── dashboard/       # Dashboard components (Sidebar, Layout)
+│   │   │   └── ui/              # Shared UI components (Button, Card, Modal, etc.)
+│   │   ├── contexts/            # React contexts (Theme, Location)
+│   │   ├── pages/               # Page components
+│   │   ├── utils/               # Utility functions
+│   │   └── App.tsx              # Main app with routing
+│   ├── package.json
+│   └── vite.config.ts
 └── README.md
 ```
 
 ## Development
 
 ```bash
-# Preview the marketing site
-open index.html
+# Install dependencies
+cd frontend
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
 ## License

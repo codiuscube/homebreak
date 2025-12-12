@@ -1,23 +1,29 @@
-import { Sliders, BrainCircuit, Anchor } from "lucide-react";
+import { Sliders, BrainCircuit, Anchor, MapPin } from "lucide-react";
 
 const features = [
   {
     icon: Sliders,
-    title: "You define the Vibe",
+    title: "You Define the Vibe",
     description:
-      'Set your specific triggers. Define what "Fun" means to you (e.g., >3ft, <10mph wind). We monitor it so you don\'t have to.',
+      'Dial in your perfect conditions. Set custom ranges for wave height, swell period, swell direction, wind speed, and more. Your triggers, your rules.',
+  },
+  {
+    icon: MapPin,
+    title: "Multiple Spots, One App",
+    description:
+      'Monitor all your go-to breaks simultaneously. Different triggers for each spot - because what works at the jetty might not work at the point.',
   },
   {
     icon: BrainCircuit,
-    title: "Personality",
+    title: "Your Surf Buddy",
     description:
-      'Powered by Claude 4.5. No robot reports ("3ft at 9s"). You get a hyped-up text that sounds like a local buddy telling you to get out there.',
+      'No robot reports. Pick your vibe: Stoked Local (hyped buddy energy), Chill Surfer (laid back), Data Nerd (just the facts), or Hype Beast (maximum send).',
   },
   {
     icon: Anchor,
-    title: "Smart Validation",
+    title: "No Spam, Only Signals",
     description:
-      "We don't just trust models. We cross-reference Open-Meteo forecasts with real-time NOAA Buoy data to ensure the swell is actually in the water.",
+      "We cross-reference forecasts with real-time NOAA buoy data to confirm the swell is actually in the water. Smart cooldowns mean you only hear from us when it matters.",
   },
 ];
 
@@ -38,7 +44,7 @@ export function Features() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature) => (
             <div
               key={feature.title}

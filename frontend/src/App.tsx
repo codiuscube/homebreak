@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { LocationProvider } from './contexts/LocationContext';
 import { DashboardLayout } from './components/dashboard';
 import {
   LandingPage,
@@ -14,6 +15,7 @@ import {
 function App() {
   return (
     <ThemeProvider>
+      <LocationProvider>
       <BrowserRouter>
         <Routes>
           {/* Landing Page */}
@@ -30,6 +32,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </LocationProvider>
     </ThemeProvider>
   );
 }

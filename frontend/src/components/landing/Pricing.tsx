@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { Check, Infinity } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Button } from '../ui';
+import { Button, ComingSoonModal } from '../ui';
+import { isProduction } from '../../utils/environment';
 
 export function Pricing() {
+  const [showComingSoon, setShowComingSoon] = useState(false);
+
   return (
     <section id="pricing" className="py-24">
       <div className="container mx-auto px-6 max-w-5xl">
@@ -46,11 +50,17 @@ export function Pricing() {
                 Email fallback after limit
               </li>
             </ul>
-            <Link to="/dashboard">
-              <Button variant="outline" className="w-full">
+            {isProduction() ? (
+              <Button variant="outline" className="w-full" onClick={() => setShowComingSoon(true)}>
                 Get Started
               </Button>
-            </Link>
+            ) : (
+              <Link to="/dashboard">
+                <Button variant="outline" className="w-full">
+                  Get Started
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Unlimited Tier */}
@@ -86,14 +96,22 @@ export function Pricing() {
                 All alert types
               </li>
             </ul>
-            <Link to="/dashboard">
-              <Button className="w-full bg-green-500 text-white hover:bg-green-600">
+            {isProduction() ? (
+              <Button className="w-full bg-green-500 text-white hover:bg-green-600" onClick={() => setShowComingSoon(true)}>
                 Start Free Trial
               </Button>
-            </Link>
+            ) : (
+              <Link to="/dashboard">
+                <Button className="w-full bg-green-500 text-white hover:bg-green-600">
+                  Start Free Trial
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
+
+      <ComingSoonModal isOpen={showComingSoon} onClose={() => setShowComingSoon(false)} />
     </section>
   );
 }

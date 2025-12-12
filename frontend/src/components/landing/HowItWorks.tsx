@@ -1,70 +1,135 @@
-export function HowItWorks() {
-  const steps = [
+import { useState, useMemo } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useSpotName } from '../../contexts/LocationContext';
+
+function getSlides(spotName: string) {
+  return [
     {
       number: '01',
-      title: 'Night Before Hype (8:00 PM)',
-      description: 'Checks tomorrow\'s forecast against your "Good" tier. Helps you plan your alarm.',
+      title: 'Night Before Hype',
+      time: '8:00 PM',
+      description: 'Checks tomorrow\'s forecast against your triggers. Get hyped or sleep in - we\'ll tell you which.',
+      image: 'https://images.unsplash.com/photo-1552918147-eb18f7613987?q=80&w=2070&auto=format&fit=crop',
+      overlay: `🌅 Tomorrow's forecast for ${spotName} is looking FUN - 3-4ft @ 11s, light winds early. Set that alarm!`,
     },
     {
       number: '02',
-      title: 'Morning Reality Check (6:00 AM)',
-      description: 'Validates live buoy data. Checks Google Traffic. Gives you a "Go/No-Go" with drive time.',
+      title: 'Morning Reality Check',
+      time: '6:00 AM',
+      description: 'Live buoy validation confirms real conditions. Includes real-time traffic estimates so you know exactly when to leave.',
+      image: 'https://images.unsplash.com/photo-1704320392193-247c05689e36?q=80&w=2070&auto=format&fit=crop',
+      overlay: `🤙🔥 IT'S ON! ${spotName} buoy just jumped to 4.2ft @ 12s. Wind is clean. 38 min drive. GO GO GO!`,
     },
     {
       number: '03',
       title: 'Pop-Up Alert',
-      description: 'Runs every 2 hours. Catches wind switches or sudden pulse arrivals.',
+      time: 'Every 2 hours',
+      description: 'Catches surprise swells, wind switches, and sudden pulse arrivals. Know exactly how long it would take to drop everything and go.',
+      image: 'https://images.unsplash.com/photo-1760755958486-a6d88891e7f5?q=80&w=2070&auto=format&fit=crop',
+      overlay: `🚨 WIND SWITCH! Offshore just kicked in at ${spotName}. Was junky, now it's CLEAN. Paddle out window: 2hrs`,
     },
   ];
+}
+
+export function HowItWorks() {
+  const spotName = useSpotName();
+  const slides = useMemo(() => getSlides(spotName), [spotName]);
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const goToPrevious = () => {
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+
+  const slide = slides[currentSlide];
 
   return (
     <section id="how-it-works" className="py-24 border-b border-border relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight mb-6">
-              The "Smart" Triggers
-            </h2>
-            <div className="space-y-8">
-              {steps.map((step, index) => (
-                <div key={step.number} className="flex gap-4">
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 rounded-full bg-zinc-800 border border-border flex items-center justify-center text-xs font-bold font-mono">
-                      {step.number}
-                    </div>
-                    {index < steps.length - 1 && (
-                      <div className="h-full w-px bg-border my-2" />
-                    )}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold tracking-tight">
+            The "Smart" Triggers
+          </h2>
+          <p className="text-muted-foreground mt-2">
+            Three ways we keep you in the water
+          </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          {/* Carousel */}
+          <div className="relative group">
+            {/* Glow effect */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-3xl blur-2xl opacity-50" />
+
+            {/* Main card */}
+            <div className="relative bg-zinc-900 rounded-2xl overflow-hidden border border-white/10">
+              {/* Image */}
+              <div className="relative h-[300px] sm:h-[400px]">
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover transition-opacity duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-zinc-900/20 to-transparent" />
+
+                {/* Hype text bubble */}
+                <div className="absolute top-4 left-4 right-4">
+                  <div className="inline-block bg-[#34C759] text-white text-sm px-4 py-2 rounded-2xl rounded-bl-sm shadow-lg">
+                    {slide.overlay}
+                  </div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6 sm:p-8">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-lg font-bold font-mono">
+                    {slide.number}
                   </div>
                   <div>
-                    <h4 className="font-bold text-white mb-1">{step.title}</h4>
-                    <p className="text-sm text-muted-foreground">{step.description}</p>
+                    <h3 className="text-xl font-bold text-white">{slide.title}</h3>
+                    <p className="text-sm text-cyan-400 font-mono">{slide.time}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Surf Image Visual */}
-          <div className="relative group">
-            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition duration-500" />
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-              <img
-                src="https://images.unsplash.com/photo-1476574898132-040f50db0a01?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Ocean wave at sunset"
-                className="w-full h-[400px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-              {/* Overlay Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-xs font-mono text-white/80">Live monitoring active</span>
-                </div>
-                <p className="text-white/90 text-sm font-medium">
-                  Real-time conditions analyzed 24/7 so you never miss a session.
+                <p className="text-muted-foreground">
+                  {slide.description}
                 </p>
+              </div>
+
+              {/* Navigation */}
+              <div className="flex items-center justify-between p-6 pt-0">
+                <div className="flex gap-2">
+                  {slides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        index === currentSlide
+                          ? 'bg-cyan-400 w-6'
+                          : 'bg-white/20 hover:bg-white/40'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    onClick={goToPrevious}
+                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={goToNext}
+                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

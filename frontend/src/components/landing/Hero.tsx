@@ -1,42 +1,46 @@
-import { useState, useEffect } from "react";
-import { ArrowRight, Database, Bot, Zap, Waves, Check } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { ArrowRight, Database, Bot, Zap, Waves } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "../ui";
+import { Button, ComingSoonModal } from "../ui";
+import { isProduction } from "../../utils/environment";
+import { useSpotName } from "../../contexts/LocationContext";
 
-const rotatingNotifications = [
-  {
-    label: "🤙🔥",
-    message:
-      "DUDE! Surfside is FIRING - rare Texas glass! 4.2ft @ 12s SE, 8mph NW keeping it CLEAN.",
-  },
-  {
-    label: "🤙",
-    message:
-      "Surfside's looking good! Gulf's cooperating - 4.2ft @ 12s SE, 8mph NW. Worth the drive!",
-  },
-  {
-    label: "🚨🚨🚨",
-    message:
-      "THIS IS NOT A DRILL!! SURFSIDE IS GOING OFF - BEST GULF SWELL THIS YEAR!! CALL IN SICK!!",
-  },
-  {
-    label: "🌊",
-    message:
-      "Hey - Surfside's actually really nice. 4.2ft @ 12s SE, 8mph NW. Clean for the Gulf.",
-  },
-  {
-    label: "📊",
-    message:
-      "SURFSIDE: 4.2ft @ 12s SE | Wind: 8mph NW | Buoy 42035: 3ft @ 15s | ETA: 45min | Good",
-  },
-];
+function getNotifications(spotName: string) {
+  const upper = spotName.toUpperCase();
+  return [
+    {
+      label: "🤙🔥",
+      message: `DUDE! ${spotName} is FIRING! 4.2ft @ 12s, 8mph offshore keeping it CLEAN.`,
+    },
+    {
+      label: "🤙",
+      message: `${spotName}'s looking good! 4.2ft @ 12s, light winds. Worth the drive!`,
+    },
+    {
+      label: "🚨🚨🚨",
+      message: `THIS IS NOT A DRILL!! ${upper} IS GOING OFF - BEST SWELL THIS YEAR!! CALL IN SICK!!`,
+    },
+    {
+      label: "🌊",
+      message: `Hey - ${spotName}'s actually really nice right now. 4.2ft @ 12s, clean conditions.`,
+    },
+    {
+      label: "📊",
+      message: `${upper}: 4.2ft @ 12s | Wind: 8mph NW | Buoy confirmed | ETA: 38min | Good`,
+    },
+  ];
+}
 
 export function Hero() {
+  const spotName = useSpotName();
+  const notifications = useMemo(() => getNotifications(spotName), [spotName]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayIndex, setDisplayIndex] = useState(0);
   const [animationPhase, setAnimationPhase] = useState<
     "idle" | "exit" | "prepare" | "enter"
   >("idle");
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,7 +49,7 @@ export function Hero() {
 
       setTimeout(() => {
         // Phase 2: Prepare - instantly position below (no transition)
-        const next = (currentIndex + 1) % rotatingNotifications.length;
+        const next = (currentIndex + 1) % notifications.length;
         setCurrentIndex(next);
         setDisplayIndex(next);
         setAnimationPhase("prepare");
@@ -67,7 +71,7 @@ export function Hero() {
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, [currentIndex, notifications.length]);
 
   return (
     <header className="relative min-h-screen flex items-center overflow-hidden">
@@ -88,27 +92,41 @@ export function Hero() {
           <div className="flex-1 space-y-6 sm:space-y-8 text-center lg:text-left">
             <div className="inline-flex items-center rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-xs font-medium text-white/90">
               <span className="flex h-2 w-2 rounded-full bg-green-400 mr-2 animate-pulse" />
-              Live Alerts Active
+              Locals only live alerts
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tighter leading-[1.1] text-white">
-              The Invisible
+              The{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white/40 via-white/20 to-white/40 animate-pulse">
+                Invisible
+              </span>
               <br />
               Surf Check.
             </h1>
 
-            <p className="text-base sm:text-xl text-white/70 max-w-lg leading-relaxed mx-auto lg:mx-0">
-              No apps to check. No forecasts to analyze. Just a text from your
-              AI surf buddy when conditions line up with your preferences.
+            <p className="text-base sm:text-xl text-white/70 max-w-xl leading-relaxed mx-auto lg:mx-0">
+              No apps to check. No forecasts to analyze. Just texts from your
+              surf buddy when it's actually&nbsp;worth&nbsp;the&nbsp;drive.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-2 sm:pt-4 justify-center lg:justify-start">
-              <Link to="/dashboard">
-                <Button size="lg" className="w-full sm:w-auto">
+              {isProduction() ? (
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto"
+                  onClick={() => setShowComingSoon(true)}
+                >
                   Get Started Free
                   <ArrowRight className="w-4 h-4" />
                 </Button>
-              </Link>
+              ) : (
+                <Link to="/dashboard">
+                  <Button size="lg" className="w-full sm:w-auto">
+                    Get Started Free
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              )}
             </div>
 
             <div className="pt-6 sm:pt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 text-xs text-white/60 font-mono">
@@ -117,7 +135,7 @@ export function Hero() {
               </div>
               <div className="w-px h-3 bg-white/20 hidden sm:block" />
               <div className="flex items-center gap-2">
-                <Bot className="w-3 h-3" /> AI Powered
+                <Bot className="w-3 h-3" /> AI Assisted
               </div>
               <div className="w-px h-3 bg-white/20 hidden sm:block" />
               <div className="flex items-center gap-2">
@@ -159,9 +177,9 @@ export function Hero() {
                   </div>
                   <p className="text-xs sm:text-sm text-white/80 leading-snug">
                     <span className="font-bold text-cyan-400">
-                      {rotatingNotifications[displayIndex].label}
+                      {notifications[displayIndex].label}
                     </span>{" "}
-                    {rotatingNotifications[displayIndex].message}
+                    {notifications[displayIndex].message}
                   </p>
                 </div>
               </div>
@@ -169,6 +187,11 @@ export function Hero() {
           </div>
         </div>
       </div>
+
+      <ComingSoonModal
+        isOpen={showComingSoon}
+        onClose={() => setShowComingSoon(false)}
+      />
     </header>
   );
 }

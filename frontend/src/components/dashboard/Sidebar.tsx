@@ -10,7 +10,6 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { ThemeToggle } from "../ui";
 import { useState } from "react";
 
 const navItems = [
@@ -40,7 +39,6 @@ export function Sidebar() {
           </span>
         </NavLink>
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             className="p-2 rounded-lg hover:bg-sidebar-accent text-sidebar-foreground"
@@ -103,10 +101,6 @@ export function Sidebar() {
           ))}
         </nav>
 
-        {/* Theme Toggle - desktop only (mobile shows in header) */}
-        <div className="hidden lg:flex p-4 border-t border-sidebar-border">
-          <ThemeToggle showLabel />
-        </div>
       </aside>
     </>
   );
