@@ -40,7 +40,7 @@ export function LoginPage() {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-2xl font-bold text-white">
             <h2 className="mt-6 text-3xl font-extrabold text-white">
-              ITSPUMPING.AI
+              WAVE_WIRE
             </h2></Link>
           <p className="text-slate-400 mt-2">Sign in to your account</p>
         </div>

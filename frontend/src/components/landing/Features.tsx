@@ -46,9 +46,11 @@ export function Features() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-acid to-white">JUST_WAVES.</span>
           </h2>
           <p className="font-mono text-brand-concrete max-w-xl text-sm md:text-base border-t border-dashed border-white/20 pt-4 mt-4">
-            // STATUS: SYSTEM_OPTIMIZED<br />
+            <span className="inline-block bg-brand-rogue text-brand-abyss px-2 py-0.5 transform -rotate-1 mb-2 font-mono text-xs font-bold tracking-widest tape">
+              // STATUS: SYSTEM_OPTIMIZED
+            </span><br />
             <span className="text-xl md:text-2xl text-zinc-400 font-mono">
-              ITSPUMPING.AI lives in the background until the ocean turns on.
+              WAVE_WIRE lives in the background until the ocean turns on.
             </span>
           </p>
         </div>

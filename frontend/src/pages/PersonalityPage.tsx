@@ -221,7 +221,7 @@ export function PersonalityPage() {
           <div className="bg-muted rounded-2xl p-3 sm:p-4">
             <div className="text-center mb-3 pb-2 border-b border-border">
               <p className="text-[10px] text-muted-foreground uppercase">Text Message</p>
-              <p className="font-semibold text-sm text-foreground">ITSPUMPING.AI (512) 555-0123</p>
+              <p className="font-semibold text-sm text-foreground">WAVE_WIRE (512) 555-0123</p>
             </div>
 
             <div className="flex justify-start">

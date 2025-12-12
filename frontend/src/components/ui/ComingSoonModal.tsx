@@ -35,7 +35,7 @@ export function ComingSoonModal({ isOpen, onClose }: ComingSoonModalProps) {
           <h2 className="text-2xl font-bold mb-3">Coming Soon</h2>
 
           <p className="text-muted-foreground mb-6">
-            We're putting the finishing touches on ITSPUMPING.AI. Sign up to be notified when we launch!
+            We're putting the finishing touches on WAVE_WIRE. Sign up to be notified when we launch!
           </p>
 
           <Button onClick={onClose} className="w-full">

@@ -60,26 +60,22 @@ export function Hero() {
 
             {/* Decorative Top Label */}
             <div className="font-mono text-brand-acid text-xs tracking-[0.2em] mb-4 border-l-2 border-brand-rogue pl-4 py-1 tape">
-              SURF ALERTS. FREE. VIA TEXT.
+              HARD INTEL. LIVE ALERTS.
             </div>
 
             {/* Massive Glitch Heading */}
-            <h1 className="text-5xl sm:text-8xl leading-[0.8] tracking-tighter text-white font-black mix-blend-difference mb-8 glitch-text select-none font-display uppercase" data-text="YEW_IT'S">
-              YEW_IT'S<br />
-              <span className="text-brand-acid ml-8 sm:ml-24 block translate-x-2 sm:translate-x-4 distressed-text">PUMPING!</span>
+            <h1 className="text-5xl sm:text-8xl leading-[0.8] tracking-tighter text-white font-black mix-blend-difference mb-8 glitch-text select-none font-display uppercase" data-text="SWELL">
+              SWELL<br />
+              <span className="text-brand-acid ml-8 sm:ml-24 block translate-x-2 sm:translate-x-4 distressed-text">INCOMING.</span>
             </h1>
 
             {/* Subtext Layer */}
             <div className="max-w-xl -mt-8 sm:-mt-12 ml-auto sm:ml-32 relative z-20">
               <div className="bg-brand-rogue text-brand-abyss font-bold font-mono text-xs inline-block px-2 py-1 mb-2 transform -rotate-1">
-                SYSTEM_ACTIVE
+                // WIRE_RECEIVED
               </div>
               <p className="font-mono text-sm sm:text-base text-brand-foam leading-relaxed border-l-2 border-brand-acid pl-6">
-                WE MONITOR EVERYTHING.<br />
-                <span className="text-white font-bold">Swell. Tide. Tide. Traffic.</span><br />
-                We crunch the data. You just get the alert.
-                <br /><br />
-                <span className="text-brand-acid font-bold tracking-widest">// STOP_SCROLLING_START_SURFING</span>
+                <span className="text-white font-bold text-lg">GO.</span> Direct line to firing surf. We watch the buoy, wind, and tide. You get the signal.
               </p>
             </div>
 
@@ -89,7 +85,7 @@ export function Hero() {
                 onClick={() => setShowComingSoon(true)}
                 className="btn-brutal text-lg"
               >
-                JOIN BETA
+                JOIN WAVE_WIRE
               </button>
 
               <Link to="/dashboard" className="font-mono text-brand-foam text-sm underline decoration-brand-rogue decoration-2 underline-offset-4 hover:text-white transition-colors self-center">

@@ -14,15 +14,14 @@ export function Pricing() {
 
       <div className="container mx-auto px-6 max-w-5xl relative z-10">
         <div className="text-center mb-24">
-          {/* Tape Effect */}
-          <div className="inline-block bg-brand-rogue text-brand-abyss px-4 py-1 transform -rotate-2 mb-6 font-mono font-bold tracking-widest tape">
-            DATA_ACCESS_LEVELS
-          </div>
+          {/* Tape Effect Removed */}
           <h2 className="text-5xl md:text-7xl font-black font-display tracking-tighter text-white uppercase leading-[0.8] mb-6">
             SIMPLE<br /><span className="text-brand-concrete">PRICING</span>
           </h2>
           <p className="font-mono text-brand-foam/80 max-w-lg mx-auto border-t border-white/20 pt-6">
-            // STATUS: OPEN_BETA<br />
+            <span className="inline-block bg-brand-rogue text-brand-abyss px-2 py-0.5 transform -rotate-1 mb-2 font-mono text-xs font-bold tracking-widest tape">
+              // STATUS: OPEN_BETA
+            </span><br />
             Start free. Upgrade when you need more. No hidden fees. No contracts.
           </p>
         </div>

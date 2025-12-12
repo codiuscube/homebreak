@@ -14,7 +14,7 @@ export function Navbar() {
             <Logo className="w-12 h-12" style={{ filter: 'drop-shadow(0 0 2px rgba(226,253,92,0.5))' }} />
           </div>
           <span className="font-display font-bold text-xl tracking-wider text-white">
-            ITSPUMPING.AI
+            WAVE_WIRE
           </span>
         </Link>
 

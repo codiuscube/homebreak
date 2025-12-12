@@ -88,7 +88,7 @@ export function Sidebar() {
               <Logo className="w-5 h-5 text-foreground" />
             </div>
             <span className="font-bold text-lg tracking-tight text-white/90">
-              ITSPUMPING.AI
+              WAVE_WIRE
             </span>
           </NavLink>
         </div>

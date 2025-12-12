@@ -55,7 +55,9 @@ export function HowItWorks() {
             </div>
 
             <p className="font-mono text-sm text-brand-foam/80 mb-12 border-l border-white/20 pl-4">
-              // ALGORITHM: ACTIVE<br />
+              <span className="inline-block bg-brand-rogue text-brand-abyss px-2 py-0.5 transform -rotate-1 mb-2 font-mono text-xs font-bold tracking-widest tape">
+                // ALGORITHM: ACTIVE
+              </span><br />
               How we keep you wet and keep you working.
             </p>
 
