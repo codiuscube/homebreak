@@ -13,7 +13,7 @@ export function Footer() {
           <div className="flex items-center gap-2 text-brand-acid group">
             <Waves className="w-5 h-5 group-hover:rotate-12 transition-transform" />
             <span className="font-bold font-display tracking-tighter uppercase text-xl text-white">
-              HOMEBREAK
+              ITSPUMPING.AI
             </span>
           </div>
           <p className="font-mono text-[10px] text-brand-foam/50 uppercase tracking-widest pl-1">
@@ -32,7 +32,7 @@ export function Footer() {
 
         <div className="text-right">
           <p className="font-mono text-[10px] text-brand-concrete uppercase">
-            &copy; 2025 Homebreak Inc.
+            &copy; 2025 ITSPUMPING.AI
           </p>
           <p className="font-mono text-[10px] text-brand-rogue uppercase mt-1">
             JUST_WAVES. NO_TROUBLE.

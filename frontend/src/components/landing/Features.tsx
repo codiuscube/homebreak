@@ -47,8 +47,9 @@ export function Features() {
           </h2>
           <p className="font-mono text-brand-concrete max-w-xl text-sm md:text-base border-t border-dashed border-white/20 pt-4 mt-4">
             // STATUS: SYSTEM_OPTIMIZED<br />
-            Most apps want your attention. We just want you to surf.
-            Homebreak lives in the background until the ocean turns on.
+            <span className="text-xl md:text-2xl text-zinc-400 font-mono">
+              ITSPUMPING.AI lives in the background until the ocean turns on.
+            </span>
           </p>
         </div>
 

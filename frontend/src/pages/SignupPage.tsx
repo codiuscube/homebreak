@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Waves, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 export function SignupPage() {
   const [email, setEmail] = useState('');
@@ -67,9 +67,9 @@ export function SignupPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 text-2xl font-bold text-white">
-            <Waves className="w-8 h-8 text-cyan-400" />
-            Home Break
-          </Link>
+            <h2 className="mt-6 text-3xl font-extrabold text-white">
+              ITSPUMPING.AI
+            </h2></Link>
           <p className="text-slate-400 mt-2">Create your account</p>
         </div>
 

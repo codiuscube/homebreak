@@ -1,4 +1,4 @@
-# Home Break - Supabase Integration To-Do List
+# ITSPUMPING.AI - Supabase Integration To-Do List
 
 ## Overview
 Wire up all frontend pages to Supabase backend with phone-first authentication.

@@ -11,8 +11,8 @@ export function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 text-brand-acid group">
           <Waves className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-          <span className="font-bold font-display tracking-tighter uppercase text-xl text-white">
-            HOMEBREAK
+          <span className="font-display font-bold text-xl tracking-wider text-white">
+            ITSPUMPING.AI
           </span>
         </Link>
 

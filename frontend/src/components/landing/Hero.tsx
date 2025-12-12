@@ -64,9 +64,9 @@ export function Hero() {
             </div>
 
             {/* Massive Glitch Heading */}
-            <h1 className="text-5xl sm:text-9xl leading-[0.8] tracking-tighter text-white font-black mix-blend-difference mb-8 glitch-text select-none font-display uppercase" data-text="HOME">
-              HOME<br />
-              <span className="text-brand-acid ml-8 sm:ml-24 block translate-x-2 sm:translate-x-4 distressed-text">BREAK</span>
+            <h1 className="text-5xl sm:text-8xl leading-[0.8] tracking-tighter text-white font-black mix-blend-difference mb-8 glitch-text select-none font-display uppercase" data-text="YEW_IT'S">
+              YEW_IT'S<br />
+              <span className="text-brand-acid ml-8 sm:ml-24 block translate-x-2 sm:translate-x-4 distressed-text">PUMPING!</span>
             </h1>
 
             {/* Subtext Layer */}

@@ -212,7 +212,7 @@ export function AccountPage() {
           <CardDescription>
             {currentTier === "free"
               ? "Upgrade for unlimited alerts"
-              : "Thanks for supporting Home Break!"}
+              : "Thanks for supporting ITSPUMPING.AI!"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -321,7 +321,7 @@ export function AccountPage() {
                   <span className="text-muted-foreground">/month</span>
                 </div>
                 <p className="text-sm text-muted-foreground mb-6">
-                  Perfect for trying out Home Break
+                  Perfect for trying out ITSPUMPING.AI
                 </p>
 
                 <ul className="space-y-3 mb-6">

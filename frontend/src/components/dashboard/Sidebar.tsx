@@ -87,8 +87,8 @@ export function Sidebar() {
             <div className="p-1.5 rounded-lg bg-secondary group-hover:bg-muted transition-colors">
               <Waves className="w-5 h-5 text-foreground" />
             </div>
-            <span className="font-bold tracking-tight uppercase text-lg">
-              Homebreak
+            <span className="font-bold text-lg tracking-tight text-white/90">
+              ITSPUMPING.AI
             </span>
           </NavLink>
         </div>
