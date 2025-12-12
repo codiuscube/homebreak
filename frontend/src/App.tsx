@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LocationProvider } from './contexts/LocationContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { SurfTechLayout } from './components/layout/SurfTechLayout';
 import { DashboardLayout } from './components/dashboard';
+import { ProtectedRoute } from './components/auth';
 import {
   LandingPage,
   DashboardOverview,
@@ -11,32 +13,45 @@ import {
   AlertsPage,
   PersonalityPage,
   AccountPage,
+  LoginPage,
+  SignupPage,
 } from './pages';
 
 function App() {
   return (
-    <ThemeProvider>
-      <LocationProvider>
-        <SurfTechLayout>
-          <BrowserRouter>
-            <Routes>
-              {/* Landing Page */}
-              <Route path="/" element={<LandingPage />} />
+    <BrowserRouter>
+      <AuthProvider>
+        <ThemeProvider>
+          <LocationProvider>
+            <SurfTechLayout>
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
 
-              {/* Dashboard Routes */}
-              <Route path="/dashboard" element={<DashboardLayout />}>
-                <Route index element={<DashboardOverview />} />
-                <Route path="triggers" element={<TriggersPage />} />
-                <Route path="spot" element={<SpotPage />} />
-                <Route path="alerts" element={<AlertsPage />} />
-                <Route path="personality" element={<PersonalityPage />} />
-                <Route path="account" element={<AccountPage />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </SurfTechLayout>
-      </LocationProvider>
-    </ThemeProvider>
+                {/* Protected Dashboard Routes */}
+                <Route
+                  path="/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <DashboardLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<DashboardOverview />} />
+                  <Route path="triggers" element={<TriggersPage />} />
+                  <Route path="spot" element={<SpotPage />} />
+                  <Route path="alerts" element={<AlertsPage />} />
+                  <Route path="personality" element={<PersonalityPage />} />
+                  <Route path="account" element={<AccountPage />} />
+                </Route>
+              </Routes>
+            </SurfTechLayout>
+          </LocationProvider>
+        </ThemeProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
