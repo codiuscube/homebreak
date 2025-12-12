@@ -1,112 +1,112 @@
 import { useState } from 'react';
-import { Check, Infinity } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Button, ComingSoonModal } from '../ui';
+import { ComingSoonModal } from '../ui';
 import { isProduction } from '../../utils/environment';
 
 export function Pricing() {
   const [showComingSoon, setShowComingSoon] = useState(false);
 
   return (
-    <section id="pricing" className="py-24">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight">
-            Simple Pricing
+    <section id="pricing" className="py-32 relative bg-brand-abyss overflow-hidden">
+      {/* Background Texture */}
+      <div className="absolute inset-0 grunge-overlay opacity-30"></div>
+
+      <div className="container mx-auto px-6 max-w-5xl relative z-10">
+        <div className="text-center mb-24">
+          {/* Tape Effect */}
+          <div className="inline-block bg-brand-rogue text-brand-abyss px-4 py-1 transform -rotate-2 mb-6 font-mono font-bold tracking-widest tape">
+            DATA_ACCESS_LEVELS
+          </div>
+          <h2 className="text-5xl md:text-7xl font-black font-display tracking-tighter text-white uppercase leading-[0.8] mb-6">
+            SIMPLE<br /><span className="text-brand-concrete">PRICING</span>
           </h2>
-          <p className="text-muted-foreground mt-2">
-            Start free. Upgrade when you need more.
+          <p className="font-mono text-brand-foam/80 max-w-lg mx-auto border-t border-white/20 pt-6">
+            // STATUS: OPEN_BETA<br />
+            Start free. Upgrade when you need more. No hidden fees. No contracts.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          {/* Free Tier */}
-          <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-8 flex flex-col">
-            <div className="mb-6">
-              <h3 className="text-xl font-bold text-white">Free</h3>
-              <div className="text-3xl font-bold mt-2 text-white">
-                $0
-                <span className="text-sm font-normal text-zinc-400"> /month</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto px-4">
+          {/* Free Tier - Brutalist Ticket Stub */}
+          <div className="relative group md:rotate-2 md:mt-12 transition-transform hover:rotate-0 hover:z-20 hover:scale-105 duration-300">
+            <div className="absolute inset-0 bg-white/5 transform translate-x-2 translate-y-2 border border-brand-concrete/30"></div>
+            <div className="relative bg-brand-abyss border-2 border-brand-concrete p-8 h-full flex flex-col hover:border-white transition-colors shadow-2xl">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-abyss px-4 font-mono text-xs text-brand-concrete border border-brand-concrete/30">
+                ENTRY_LEVEL
               </div>
-              <p className="text-sm text-zinc-400 mt-2">
-                Perfect for trying it out
-              </p>
+
+              <h3 className="text-3xl font-black font-display text-white mb-2">GROM</h3>
+              <div className="text-5xl font-mono text-brand-concrete mb-6 opacity-50">$0</div>
+
+              <ul className="space-y-4 mb-8 font-mono text-sm text-brand-foam/60 flex-1">
+                <li className="flex items-center gap-3">
+                  <Zap className="w-4 h-4 text-brand-concrete" /> 1 spot
+                </li>
+                <li className="flex items-center gap-3">
+                  <Zap className="w-4 h-4 text-brand-concrete" /> 1 trigger
+                </li>
+                <li className="flex items-center gap-3">
+                  <Zap className="w-4 h-4 text-brand-concrete" /> 5 SMS alerts / mo
+                </li>
+              </ul>
+
+              {isProduction() ? (
+                <button onClick={() => setShowComingSoon(true)} className="w-full py-4 border border-brand-concrete text-brand-concrete hover:bg-brand-concrete hover:text-brand-abyss font-mono font-bold uppercase tracking-widest transition-all">
+                  INITIATE
+                </button>
+              ) : (
+                <Link to="/dashboard" className="block text-center w-full py-4 border border-brand-concrete text-brand-concrete hover:bg-brand-concrete hover:text-brand-abyss font-mono font-bold uppercase tracking-widest transition-all">
+                  INITIATE
+                </Link>
+              )}
+
+              {/* Torn edge decoration */}
+              <div className="absolute -bottom-2 left-0 right-0 h-4 bg-brand-abyss torn-bottom transform rotate-180"></div>
             </div>
-            <ul className="space-y-4 mb-8 flex-1">
-              <li className="flex items-center gap-3 text-sm text-zinc-300">
-                <Check className="w-4 h-4 text-zinc-500" />
-                1 spot
-              </li>
-              <li className="flex items-center gap-3 text-sm text-zinc-300">
-                <Check className="w-4 h-4 text-zinc-500" />
-                1 trigger
-              </li>
-              <li className="flex items-center gap-3 text-sm text-zinc-300">
-                <Check className="w-4 h-4 text-zinc-500" />
-                5 SMS alerts per month
-              </li>
-              <li className="flex items-center gap-3 text-sm text-zinc-300">
-                <Check className="w-4 h-4 text-zinc-500" />
-                Email fallback after limit
-              </li>
-            </ul>
-            {isProduction() ? (
-              <Button variant="outline" className="w-full" onClick={() => setShowComingSoon(true)}>
-                Get Started
-              </Button>
-            ) : (
-              <Link to="/dashboard">
-                <Button variant="outline" className="w-full">
-                  Get Started
-                </Button>
-              </Link>
-            )}
           </div>
 
-          {/* Unlimited Tier */}
-          <div className="bg-zinc-900 border-2 border-green-500 rounded-xl p-8 flex flex-col relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 bg-green-500 text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wide">
-              Recommended
-            </div>
-            <div className="mb-6">
-              <h3 className="text-xl font-bold text-white">Unlimited</h3>
-              <div className="text-3xl font-bold mt-2 text-white">
-                $5
-                <span className="text-sm font-normal text-zinc-400"> /month</span>
+          {/* Unlimited Tier - Hacked/Glitch Card */}
+          <div className="relative group md:-rotate-2 md:-mt-8 transition-transform hover:rotate-0 hover:z-20 hover:scale-105 duration-300">
+            {/* Glitch borders */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-brand-acid to-brand-rogue opacity-50 blur-sm group-hover:opacity-80 transition-opacity"></div>
+
+            <div className="relative bg-black border-2 border-brand-acid p-8 h-full flex flex-col">
+              <div className="absolute top-0 right-0 bg-brand-acid text-brand-abyss font-bold text-xs px-3 py-1 font-mono uppercase">
+                RECOMMENDED
               </div>
-              <p className="text-sm text-zinc-400 mt-2">
-                Never miss a session
-              </p>
+
+              <h3 className="text-3xl font-black font-display text-white mb-2 text-brand-acid flicker">LOCAL</h3>
+              <div className="text-5xl font-mono text-white mb-6">$5<span className="text-lg text-brand-foam/50">/mo</span></div>
+
+              <ul className="space-y-4 mb-8 font-mono text-sm text-white flex-1 relative z-10">
+                <li className="flex items-center gap-3">
+                  <Zap className="w-4 h-4 text-brand-acid" /> <span className="font-bold">Unlimited spots</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Zap className="w-4 h-4 text-brand-acid" /> <span className="font-bold">Unlimited triggers</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Zap className="w-4 h-4 text-brand-acid" /> <span className="font-bold">Unlimited SMS</span>
+                </li>
+                <li className="flex items-center gap-3 opacity-60">
+                  <Zap className="w-4 h-4 text-brand-acid" /> Early access features
+                </li>
+              </ul>
+
+              {/* Decorative Barcode */}
+              <div className="h-4 w-full bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAABCAYAAAD5PA/NAAAAFklEQVR42mN88f7/fwYoYAQxEAQ4gAgA7Z0K00s78+YAAAAASUVORK5CYII=')] opacity-30 mb-6 bg-repeat-x"></div>
+
+              {isProduction() ? (
+                <button onClick={() => setShowComingSoon(true)} className="w-full py-4 bg-brand-acid text-brand-abyss hover:bg-white font-mono font-bold uppercase tracking-widest shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                  GET_FULL_ACCESS
+                </button>
+              ) : (
+                <Link to="/dashboard" className="block text-center w-full py-4 bg-brand-acid text-brand-abyss hover:bg-white font-mono font-bold uppercase tracking-widest shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                  GET_FULL_ACCESS
+                </Link>
+              )}
             </div>
-            <ul className="space-y-4 mb-8 flex-1">
-              <li className="flex items-center gap-3 text-sm text-white">
-                <Infinity className="w-4 h-4 text-green-400" />
-                <span className="font-bold">Unlimited spots</span>
-              </li>
-              <li className="flex items-center gap-3 text-sm text-white">
-                <Infinity className="w-4 h-4 text-green-400" />
-                <span className="font-bold">Unlimited triggers</span>
-              </li>
-              <li className="flex items-center gap-3 text-sm text-white">
-                <Infinity className="w-4 h-4 text-green-400" />
-                <span className="font-bold">Unlimited SMS alerts</span>
-              </li>
-              <li className="flex items-center gap-3 text-sm text-white">
-                <Check className="w-4 h-4 text-green-400" />
-                All alert types
-              </li>
-            </ul>
-            {isProduction() ? (
-              <Button className="w-full bg-green-500 text-white hover:bg-green-600" onClick={() => setShowComingSoon(true)}>
-                Start Free Trial
-              </Button>
-            ) : (
-              <Link to="/dashboard">
-                <Button className="w-full bg-green-500 text-white hover:bg-green-600">
-                  Start Free Trial
-                </Button>
-              </Link>
-            )}
           </div>
         </div>
       </div>

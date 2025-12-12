@@ -2,22 +2,42 @@ import { Waves } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="py-12 border-t border-border bg-zinc-950 text-muted-foreground text-sm">
-      <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="flex items-center gap-2">
-          <Waves className="w-4 h-4" />
-          <span className="font-bold text-foreground tracking-tight uppercase">
-            Home Break
-          </span>
+    <footer className="py-12 border-t border-white/10 bg-brand-abyss relative">
+      {/* Tape Effect */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-rogue text-brand-abyss px-4 py-1 font-mono text-xs font-bold tracking-widest rotate-2 shadow-lg tape z-120">
+        SURF ALERTS. FREE. VIA TEXT.
+      </div>
+
+      <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+        <div className="flex flex-col items-center md:items-start gap-2">
+          <div className="flex items-center gap-2 text-brand-acid group">
+            <Waves className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            <span className="font-bold font-display tracking-tighter uppercase text-xl text-white">
+              HOMEBREAK
+            </span>
+          </div>
+          <p className="font-mono text-[10px] text-brand-foam/50 uppercase tracking-widest pl-1">
+            v2.0 // EST. 2025
+          </p>
         </div>
 
-        <div className="flex gap-6">
-          <a href="#" className="hover:text-foreground transition-colors">
-            Terms
+        <div className="flex gap-8 font-mono text-xs text-brand-foam/60">
+          <a href="#" className="hover:text-brand-acid transition-colors uppercase decoration-brand-rogue/50 decoration-wavy hover:underline">
+            Legal_Protocols
+          </a>
+          <a href="#" className="hover:text-brand-acid transition-colors uppercase decoration-brand-rogue/50 decoration-wavy hover:underline">
+            System_Status
           </a>
         </div>
 
-        <p>&copy; 2025 Home Break. Built with love for the ocean.</p>
+        <div className="text-right">
+          <p className="font-mono text-[10px] text-brand-concrete uppercase">
+            &copy; 2025 Homebreak Inc.
+          </p>
+          <p className="font-mono text-[10px] text-brand-rogue uppercase mt-1">
+            JUST_WAVES. NO_TROUBLE.
+          </p>
+        </div>
       </div>
     </footer>
   );

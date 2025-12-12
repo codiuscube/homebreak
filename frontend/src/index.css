@@ -1,14 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Syne", sans-serif;
+  --font-body: "Space Mono", monospace;
+  --font-glitch: "Rubik Glitch", system-ui;
 
-  --radius-lg: 0.5rem;
-  --radius-md: calc(0.5rem - 2px);
-  --radius-sm: calc(0.5rem - 4px);
-
-  /* Colors reference CSS variables for theme switching */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -29,199 +26,329 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Sidebar colors */
-  --color-sidebar-background: var(--sidebar-background);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Chart colors */
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+  /* Custom Surf Tech Colors */
+  --color-brand-abyss: #020817;
+  --color-brand-foam: #e2e8f0;
+  --color-brand-acid: #00f0ff;
+  --color-brand-rogue: #ff3300;
+  --color-brand-concrete: #94a3b8;
 }
+
+/* Import Fonts */
 
 @layer base {
   :root {
-    --background: hsl(220 15% 97%);
-    --foreground: hsl(220 10% 15%);
-    --card: hsl(220 15% 97%);
-    --card-foreground: hsl(220 10% 15%);
-    --popover: hsl(220 15% 97%);
-    --popover-foreground: hsl(220 10% 15%);
-    --primary: hsl(210 80% 55%);
-    --primary-foreground: hsl(210 90% 95%);
-    --secondary: hsl(240 60% 65%);
-    --secondary-foreground: hsl(220 15% 10%);
-    --muted: hsl(220 5% 90%);
-    --muted-foreground: hsl(220 10% 40%);
-    --accent: hsl(220 5% 90%);
-    --accent-foreground: hsl(220 10% 15%);
-    --destructive: hsl(0 75% 55%);
-    --destructive-foreground: hsl(0 10% 95%);
-    --border: hsl(220 10% 85%);
-    --input: hsl(220 10% 85%);
-    --ring: hsl(210 80% 55%);
+    /* Abyss Blue / Neon Foam default */
+    --background: #020817;
+    --foreground: #e2e8f0;
 
-    --chart-1: hsl(210 80% 55%);
-    --chart-2: hsl(240 60% 65%);
-    --chart-3: hsl(170 50% 50%);
-    --chart-4: hsl(60 60% 45%);
-    --chart-5: hsl(300 60% 50%);
+    --card: #020817;
+    /* Transparent/Dark cards */
+    --card-foreground: #e2e8f0;
 
-    --sidebar-background: hsl(220 15% 94%);
-    --sidebar-foreground: hsl(220 10% 38%);
-    --sidebar-primary: hsl(210 80% 52%);
-    --sidebar-primary-foreground: hsl(210 90% 100%);
-    --sidebar-accent: hsl(220 5% 87%);
-    --sidebar-accent-foreground: hsl(220 10% 15%);
-    --sidebar-border: hsl(220 10% 82%);
-    --sidebar-ring: hsl(210 80% 52%);
+    --popover: #020817;
+    --popover-foreground: #e2e8f0;
+
+    --primary: #00f0ff;
+    /* Acid Cyan */
+    --primary-foreground: #020817;
+
+    --secondary: #ff3300;
+    /* Rogue Orange */
+    --secondary-foreground: #ffffff;
+
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+
+    --accent: #1e293b;
+    --accent-foreground: #00f0ff;
+
+    --destructive: #ff3300;
+    --destructive-foreground: #ffffff;
+
+    --border: #1e293b;
+    --input: #1e293b;
+    --ring: #00f0ff;
+
+    --radius: 0;
+    /* Brutalist sharp edges */
   }
 
-  .dark {
-    --background: hsl(220 10% 10%);
-    --foreground: hsl(210 50% 90%);
-    --card: hsl(220 10% 10%);
-    --card-foreground: hsl(210 50% 90%);
-    --popover: hsl(220 10% 10%);
-    --popover-foreground: hsl(210 50% 90%);
-    --primary: hsl(210 80% 55%);
-    --primary-foreground: hsl(210 90% 95%);
-    --secondary: hsl(240 60% 40%);
-    --secondary-foreground: hsl(210 50% 95%);
-    --muted: hsl(220 20% 20%);
-    --muted-foreground: hsl(220 40% 70%);
-    --accent: hsl(220 20% 20%);
-    --accent-foreground: hsl(210 50% 90%);
-    --destructive: hsl(0 75% 50%);
-    --destructive-foreground: hsl(0 10% 95%);
-    --border: hsl(220 20% 30%);
-    --input: hsl(220 20% 30%);
-    --ring: hsl(210 80% 55%);
-
-    --chart-1: hsl(210 80% 55%);
-    --chart-2: hsl(240 60% 50%);
-    --chart-3: hsl(170 50% 40%);
-    --chart-4: hsl(60 60% 45%);
-    --chart-5: hsl(300 60% 50%);
-
-    --sidebar-background: hsl(220 10% 2%);
-    --sidebar-foreground: hsl(210 50% 56%);
-    --sidebar-primary: hsl(210 80% 47%);
-    --sidebar-primary-foreground: hsl(210 90% 100%);
-    --sidebar-accent: hsl(220 20% 12%);
-    --sidebar-accent-foreground: hsl(210 50% 90%);
-    --sidebar-border: hsl(220 20% 22%);
-    --sidebar-ring: hsl(210 80% 47%);
-  }
+  /* No separate light mode for now, purely dark/surf tech */
+  /* If light mode is needed later, we can invert these */
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
   margin: 0;
   min-height: 100vh;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  overflow-x: hidden;
+  /* Prevent horizontal scroll from displaced elements */
+  cursor: crosshair;
+  /* Tech vibe */
 }
 
-/* Glass panel effect - adapts to theme */
-.glass-panel {
-  background-color: hsl(var(--card) / 0.5);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--color-border);
+/* Typography Overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  /* Tight tracking for heavy impact */
+  font-weight: 800;
 }
 
-.dark .glass-panel {
-  background-color: hsl(220 10% 10% / 0.7);
+/* UTILITIES & EFFECTS */
+
+/* 1. Grain/Noise Overlay */
+.bg-noise {
+  position: relative;
 }
 
-/* Grid background - adapts to theme */
-.grid-bg {
-  background-size: 40px 40px;
-  background-image: linear-gradient(
-      to right,
-      hsl(220 10% 50% / 0.1) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      hsl(220 10% 50% / 0.1) 1px,
-      transparent 1px
-    );
-}
-
-.dark .grid-bg {
-  background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px
-    );
-}
-
-/* Glow text - adapts to theme */
-.glow-text {
-  text-shadow: 0 0 20px hsl(210 80% 55% / 0.3);
-}
-
-.dark .glow-text {
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-/* Scanline animation */
-.scanline {
-  width: 100%;
-  height: 100px;
-  z-index: 10;
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0) 0%,
-    hsl(210 80% 55% / 0.1) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  opacity: 0.2;
+.bg-noise::before {
+  content: "";
   position: absolute;
-  bottom: 100%;
-  animation: scanline 10s linear infinite;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+  background-repeat: repeat;
+  animation: bg-animation .2s infinite;
+  opacity: 0.05;
+  visibility: visible;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.dark .scanline {
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  opacity: 0.1;
+/* 5. Grunge Textures */
+.grunge-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: overlay;
+  opacity: 0.3;
+  /* Increased from default */
 }
 
-@keyframes scanline {
+.scratches {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='scratches' width='200' height='200' patternUnits='userSpaceOnUse'%3E%3Cpath d='M10,20 L180,150 M50,10 L20,180 M150,20 L100,180' stroke='%23ffffff' stroke-width='2' stroke-opacity='0.2' /%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23scratches)' /%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.5;
+  /* Increased opacity and stroke width */
+}
+
+@keyframes bg-animation {
   0% {
-    bottom: 100%;
+    transform: translate(0, 0)
   }
+
+  10% {
+    transform: translate(-5%, -5%)
+  }
+
+  20% {
+    transform: translate(-10%, 5%)
+  }
+
+  30% {
+    transform: translate(5%, -10%)
+  }
+
+  40% {
+    transform: translate(-5%, 15%)
+  }
+
+  50% {
+    transform: translate(-10%, 5%)
+  }
+
+  60% {
+    transform: translate(15%, 0)
+  }
+
+  70% {
+    transform: translate(0, 10%)
+  }
+
+  80% {
+    transform: translate(-15%, 0)
+  }
+
+  90% {
+    transform: translate(10%, 5%)
+  }
+
   100% {
-    bottom: -100%;
+    transform: translate(5%, 0)
   }
 }
 
-/* Smooth transitions for theme switching */
-* {
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+/* 2. Glitch Text Effect */
+.glitch-text {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 800;
 }
 
-/* Disable transitions on page load */
-.no-transitions * {
-  transition: none !important;
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -1px 0 #ff3300;
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -1px 0 #00f0ff;
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(24px, 9999px, 83px, 0);
+  }
+
+  20% {
+    clip: rect(65px, 9999px, 81px, 0);
+  }
+
+  40% {
+    clip: rect(35px, 9999px, 13px, 0);
+  }
+
+  60% {
+    clip: rect(2px, 9999px, 60px, 0);
+  }
+
+  80% {
+    clip: rect(98px, 9999px, 49px, 0);
+  }
+
+  100% {
+    clip: rect(14px, 9999px, 52px, 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(106px, 9999px, 51px, 0);
+  }
+
+  20% {
+    clip: rect(100px, 9999px, 73px, 0);
+  }
+
+  40% {
+    clip: rect(19px, 9999px, 77px, 0);
+  }
+
+  60% {
+    clip: rect(23px, 9999px, 20px, 0);
+  }
+
+  80% {
+    clip: rect(4px, 9999px, 98px, 0);
+  }
+
+  100% {
+    clip: rect(59px, 9999px, 63px, 0);
+  }
+}
+
+/* 3. Brutalist Button */
+.btn-brutal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  padding: 0.75rem 2rem;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 4px 4px 0px 0px var(--primary);
+}
+
+.btn-brutal:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px var(--primary);
+  background: var(--primary);
+  color: var(--background);
+}
+
+.btn-brutal:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px 0px var(--primary);
+}
+
+.btn-rogue {
+  border-color: var(--secondary);
+  color: var(--secondary);
+  box-shadow: 4px 4px 0px 0px var(--secondary);
+}
+
+.btn-rogue:hover {
+  background: var(--secondary);
+  color: #fff;
+  box-shadow: 2px 2px 0px 0px var(--secondary);
+}
+
+/* 4. Glass/Border Card */
+.tech-card {
+  background: rgba(2, 8, 23, 0.7);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0.5;
+}
+
+/* Scanline override */
+.scanline {
+  background: linear-gradient(0deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 240, 255, 0.1) 50%,
+      rgba(0, 0, 0, 0) 100%);
+  opacity: 0.15;
+  height: 20px;
+  /* thinner scanline */
 }
